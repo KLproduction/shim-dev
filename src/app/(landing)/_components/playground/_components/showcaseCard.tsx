@@ -1,15 +1,12 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import React, { useRef } from "react";
+import React from "react";
 
-type Props = {
-  ref: React.RefObject<HTMLDivElement | null>;
-};
-
-const ShowcaseCard = ({ ref }: Props) => {
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end center"],
-  });
+const ShowcaseCard = React.forwardRef<HTMLDivElement, Record<string, never>>(
+  (props, ref) => {
+    const { scrollYProgress } = useScroll({
+      target: ref,
+      offset: ["start start", "end center"],
+    });
 
   const opacity1 = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
   const y1 = useTransform(scrollYProgress, [0, 0.1], [-300, 0]);
@@ -65,6 +62,7 @@ const ShowcaseCard = ({ ref }: Props) => {
       </motion.div>
     </motion.div>
   );
-};
+  },
+);
 
 export default ShowcaseCard;
