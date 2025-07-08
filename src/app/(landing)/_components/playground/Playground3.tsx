@@ -1,13 +1,16 @@
 "use client";
 
 import { useScrollFullScreen } from "@/hook/useScrollFullScreen";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import Playground2 from "./Playground2";
 
 type Props = {};
 
 const Playground3 = (props: Props) => {
   const ref = useRef<HTMLDivElement>(null);
+
+  const isInView = useInView(ref, { once: false, margin: "-50% 0% -50% 0%" });
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end end"],
@@ -20,16 +23,24 @@ const Playground3 = (props: Props) => {
   ];
 
   const containerOpacity = useTransform(scrollYProgress, [0.1, 0.5], [0, 1]);
-
   const containerScale = useTransform(scrollYProgress, [0.1, 0.5], [0, 1]);
+  const containerRotate = useTransform(scrollYProgress, [0, 0.2], [-5, 0]);
 
   return (
-    <section ref={ref} className="relative min-h-[200vh] w-full">
-      <div className="absolute inset-0 min-h-full w-full bg-white" />
-      <div className="sticky top-0 h-screen w-full">
-        <motion.div
+    <section
+      ref={ref}
+      className="relative min-h-[200vh] w-full overflow-hidden"
+    >
+      <motion.div
+        className="absolute inset-0 h-screen w-full origin-top-right"
+        animate={{
+          rotate: isInView ? 0 : -10,
+        }}
+        transition={{ duration: 0.5, ease: "easeInOut" }}
+      >
+        {/* <motion.div
           className="min-h-full min-w-full bg-black"
-          style={{ opacity: containerOpacity, scale: containerScale }}
+          // style={{ opacity: containerOpacity, scale: containerScale }}
         >
           <div className="flex h-full w-[70%] flex-col items-center justify-center gap-15">
             {imageSources.map((src, idx) => (
@@ -42,8 +53,8 @@ const Playground3 = (props: Props) => {
               />
             ))}
           </div>
-        </motion.div>
-      </div>
+        </motion.div> */}
+      </motion.div>
     </section>
   );
 };

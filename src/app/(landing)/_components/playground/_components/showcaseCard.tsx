@@ -11,17 +11,17 @@ const ShowcaseCard = ({ ref }: Props) => {
     offset: ["start start", "end center"],
   });
 
-  const opacity1 = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
-  const y1 = useTransform(scrollYProgress, [0, 0.1], [-300, 0]);
+  const opacity1 = useTransform(scrollYProgress, [0, 0.3], [0.5, 1]);
+  const y1 = useTransform(scrollYProgress, [0, 0.3], [-300, 0]);
 
-  const opacity2 = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
-  const x2 = useTransform(scrollYProgress, [0, 0.1], [300, 0]);
+  const opacity2 = useTransform(scrollYProgress, [0, 0.1], [0.5, 1]);
+  const x2 = useTransform(scrollYProgress, [0, 0.3], [300, 0]);
 
-  const opacity3 = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
-  const x3 = useTransform(scrollYProgress, [0, 0.1], [-300, 0]);
+  const opacity3 = useTransform(scrollYProgress, [0, 0.1], [0.5, 1]);
+  const x3 = useTransform(scrollYProgress, [0, 0.3], [-300, 0]);
 
-  const opacity4 = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
-  const y4 = useTransform(scrollYProgress, [0, 0.1], [300, 0]);
+  const opacity4 = useTransform(scrollYProgress, [0, 0.1], [0.5, 1]);
+  const y4 = useTransform(scrollYProgress, [0, 0.3], [300, 0]);
 
   return (
     <motion.div className="flex h-full w-full items-center justify-center p-3">

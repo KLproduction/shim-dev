@@ -1,0 +1,15 @@
+@property --rotate {
+  syntax: "<angle>";
+  initial-value: 0.15deg;
+  inherits: false;
+}
+
+.light-gradient {
+  background-image: conic-gradient(
+    from var(--rotate, 0.15turn) at 50% 0%,
+    #f4f7fc55 40deg,
+    transparent 80deg
+  );
+  filter: blur(80px); /* 柔和一點效果 */
+  mix-blend-mode: screen; /* 與黑色底疊加會發亮 */
+}

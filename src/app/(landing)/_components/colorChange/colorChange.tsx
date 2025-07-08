@@ -19,7 +19,7 @@ const ColorChange = (props: Props) => {
       <motion.div
         className="bg-background absolute inset-0 h-screen w-full transition-opacity duration-200"
         style={{ opacity }}
-      ></motion.div>
+      />
     </section>
   );
 };

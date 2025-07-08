@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import ScrollingSection from "./_components/scrollingSection/ScrollingSection";
+import { motion } from "framer-motion";
 
 import WhatIDO from "./_components/what-i-do/WhatIDO";
 import ColorChange from "./_components/colorChange/colorChange";
@@ -13,11 +14,13 @@ import { useScrollFullScreen } from "@/hook/useScrollFullScreen";
 import Playground3 from "./_components/playground/Playground3";
 import OffsetPlayground from "./_components/playground/OffsetPlayground";
 import Lenis from "lenis";
+import Hero2 from "./_components/Hero2";
+import Playground4 from "./_components/playground/Playground4";
+import LightText from "./light/page";
 
 type Props = {};
 
 const Page = (props: Props) => {
-  // useScrollFullScreen();
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.2,
@@ -32,28 +35,32 @@ const Page = (props: Props) => {
     requestAnimationFrame(raf);
 
     return () => {
-      lenis.destroy(); // Clean up on unmount
+      lenis.destroy();
     };
   }, []);
+
+  // useScrollFullScreen();
 
   return (
     <main>
       <div>
-        <div className="sticky top-0 z-0 h-screen">
+        {/* <div className="sticky top-0 z-0 h-screen">
           <Hero1 />
-        </div>
+        </div> */}
+        <LightText />
+
+        <Playground4 />
+      </div>
+      <div className="relative z-10">
+        <WhatIDO />
       </div>
       <Intro />
       {/* <OffsetPlayground /> */}
-      <Playground3 />
+      {/* <Playground3 /> */}
       {/* <Playground /> */}
 
       <Playground2 />
 
-      <div className="relative z-10">
-        <WhatIDO />
-      </div>
-      <ColorChange />
       <div className="bg-background relative z-10">
         <div className="mx-auto max-w-6xl px-4">
           <ScrollingSection />
