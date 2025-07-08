@@ -1,16 +1,15 @@
 name: Supabase Keep Alive
 
 on:
-  workflow_dispatch: # 手動觸發
-  schedule: # 每日 05:00 UTC 自動跑
+  workflow_dispatch: # 允許手動
+  schedule: # 每日 05:00 UTC
     - cron: "0 5 * * *"
 
 jobs:
   ping:
-    environment: production # 如果你用 Environment-level secrets
     runs-on: ubuntu-latest
+    environment: production # 如未用 Environment，可以移除
 
-    # 👇 Job 層環境變數；所有 step 都讀到
     env:
       SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
       SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
@@ -21,13 +20,16 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: npm # 利用 GitHub cache 加速
 
-      # 先安裝專案依賴 + ts-node
-      - name: Install dependencies
+      # ① 安裝依賴（包含 ts-node / typescript）
+      - name: Install deps
         run: |
           npm ci --ignore-scripts
-          npm install --save-dev ts-node typescript
+          npm install --save-dev ts-node@^10 typescript@^5
+          # 確認 ts-node 已經裝好
+          npx --no-install ts-node --version
 
-      # 再執行 keep-alive 腳本
+      # ② 執行 keep-alive 腳本
       - name: Run keep-alive script
         run: node --loader ts-node/esm app/lib/keepAlive.ts
