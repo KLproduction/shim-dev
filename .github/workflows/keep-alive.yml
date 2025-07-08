@@ -32,4 +32,4 @@ jobs:
 
       # ② 執行 keep-alive 腳本
       - name: Run keep-alive script
-        run: node --loader ts-node/esm src/lib/keepAlive.ts
+        run: node -r ts-node/register src/lib/keepAlive.ts
