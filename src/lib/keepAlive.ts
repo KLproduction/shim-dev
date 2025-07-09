@@ -1,38 +1,33 @@
 "use server";
+import { createClient } from "@supabase/supabase-js";
+import crypto from "crypto";
 
-import { upsertUserFromSupabase } from "@/action/login";
-import { createClientServer } from "@/utils/supabase/server";
+const supabaseUrl = process.env.SUPABASE_URL!;
+const serviceKey = process.env.SUPABASE_SERVICE_KEY!; // service_role
 
-export async function keepSupabaseAlive() {
-  const supabase = await createClientServer(); // 使用 service_role key
+const supabase = createClient(supabaseUrl, serviceKey, {
+  auth: { autoRefreshToken: false, persistSession: false },
+});
 
+async function keepSupabaseAlive() {
   const uuid = crypto.randomUUID();
   const email = `dummy_${uuid}@example.com`;
-  const password = uuid;
 
-  try {
-    const { data, error } = await supabase.auth.admin.createUser({
-      email,
-      password,
-      email_confirm: true,
-    });
-    if (error) throw error;
+  // 1. 建立帳戶
+  const { data, error } = await supabase.auth.admin.createUser({
+    email,
+    password: uuid,
+    email_confirm: true,
+  });
+  if (error) throw error;
 
-    if (data) {
-      await upsertUserFromSupabase({
-        id: data.user.id,
-        email: data.user.email,
-        name: data.user.user_metadata?.full_name ?? null,
-        image: data.user.user_metadata?.avatar_url ?? null,
-      });
+  // 2. 立即刪除帳戶
+  await supabase.auth.admin.deleteUser(data.user.id);
 
-      // 4️⃣ 立即刪除帳戶
-      await supabase.auth.admin.deleteUser(data.user.id);
-    }
-
-    console.log("✅ Supabase keep-alive ping sent");
-  } catch (err) {
-    console.error("[keepSupabaseAlive] failed:", err);
-    throw err;
-  }
+  console.log("✅ Supabase keep-alive ping sent");
 }
+
+keepSupabaseAlive().catch((err) => {
+  console.error("[keep-alive] failed:", err);
+  process.exit(1);
+});
