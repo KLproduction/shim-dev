@@ -9,7 +9,7 @@ import {
 } from "framer-motion";
 import { useRef, useState } from "react";
 
-export default function Playground4() {
+export default function DotTransform() {
   const ref = useRef<HTMLDivElement>(null);
   const [isHalf, setIsHalf] = useState(false);
 

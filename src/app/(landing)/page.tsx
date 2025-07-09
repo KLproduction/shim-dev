@@ -15,8 +15,9 @@ import Playground3 from "./_components/playground/Playground3";
 import OffsetPlayground from "./_components/playground/OffsetPlayground";
 import Lenis from "lenis";
 import Hero2 from "./_components/Hero2";
-import Playground4 from "./_components/playground/Playground4";
+
 import LightText from "./light/page";
+import DotTransform from "./_components/playground/DotTransform";
 
 type Props = {};
 
@@ -49,7 +50,7 @@ const Page = (props: Props) => {
         </div> */}
         <LightText />
 
-        <Playground4 />
+        <DotTransform />
       </div>
       <div className="relative z-10">
         <WhatIDO />
