@@ -1,14 +1,14 @@
 name: Supabase Keep Alive
 
 on:
-  workflow_dispatch: # 手動
-  schedule: # 每日 05:00 UTC
+  workflow_dispatch:
+  schedule:
     - cron: "0 5 * * *"
 
 jobs:
   ping:
     runs-on: ubuntu-latest
-    environment: production # 如無環境層 secrets，可移除
+    environment: production
 
     env:
       SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
@@ -20,16 +20,28 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm # 加快安裝
+          cache: npm
 
-      # ① 安裝專案依賴（含 typescript、supabase-js…）
-      - name: Install dependencies
-        run: npm ci --ignore-scripts
+      # ① 安裝依賴（typescript + supabase-js 等）
+      - name: Install deps
+        run: |
+          npm ci --ignore-scripts
+          npm install --save-dev typescript
+          npx tsc --version        # 驗證 tsc 已可用
 
-      # ② 依照 tsconfig 編譯（tsconfig.json 已含 "skipLibCheck": true）
+      - name: Install missing peer deps for Supabase
+        run: npm install --save-dev @solana/wallet-standard-features
+
+      # ② 編譯 keepAlive.ts 到 dist 目錄（CommonJS）
       - name: Build keep-alive
-        run: npx tsc -p tsconfig.json --outDir dist
+        run: |
+          npx tsc \
+            src/lib/keepAlive.ts \
+            --outDir dist \
+            --esModuleInterop \
+            --module commonjs \
+            --target es2020
 
       # ③ 執行產生的 JS
       - name: Run keep-alive
-        run: node dist/src/keepAlive.js
+        run: node dist/keepAlive.js

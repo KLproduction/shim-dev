@@ -8,8 +8,6 @@ import ColorChange from "../colorChange/colorChange";
 type Props = {};
 
 const WhatIDO = (props: Props) => {
-  const ref = useRef<HTMLParagraphElement>(null);
-  const isInView = useInView(ref, { once: false, margin: "-50% 0% -50% 0%" });
   const item = [
     "High-Converting Pages",
     "Optimized for SEO",
