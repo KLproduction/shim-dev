@@ -32,7 +32,24 @@ export default function DotTransform() {
     <section ref={ref} className="relative h-[200vh] w-full">
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         {/* 白色背景 */}
-        <div className="absolute inset-0 bg-zinc-50"></div>
+        <div className="absolute inset-0 bg-zinc-50">
+          <motion.div
+            className="absolute inset-0 flex items-center justify-center"
+            initial={{ opacity: 0, filter: "blur(16px)" }}
+            whileInView={{ opacity: 1, filter: "blur(0px)" }}
+            animate={{ opacity: isHalf ? 0 : 1 }}
+            transition={{
+              duration: 0.8,
+              ease: "easeInOut",
+              delay: 0.2,
+              once: false,
+            }}
+          >
+            <h1 className="text-4xl font-bold text-zinc-900 lg:text-7xl">
+              Scroll to Transform
+            </h1>
+          </motion.div>
+        </div>
 
         {/* 1️⃣ Moving Dot ─ 未過半才顯示 */}
         {!isHalf && (
@@ -50,7 +67,7 @@ export default function DotTransform() {
           animate={{
             clipPath: `circle(${isHalf ? large : small} at 50% 50vh)`,
           }}
-          transition={{ clipPath: { duration: 0.6, ease: "easeInOut" } }}
+          transition={{ clipPath: { duration: 1, ease: "easeInOut" } }}
         />
       </div>
     </section>

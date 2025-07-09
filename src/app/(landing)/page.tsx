@@ -54,6 +54,7 @@ const Page = (props: Props) => {
       </div>
       <div className="relative z-10">
         <WhatIDO />
+        <ColorChange />
       </div>
       <Intro />
       {/* <OffsetPlayground /> */}
