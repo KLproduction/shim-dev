@@ -19,23 +19,19 @@ const WhatIDO = (props: Props) => {
 
   const services = [
     {
-      title: "Provide What You Need",
-      img: undefined,
-    },
-    {
       title: "Branding Webpages",
       img: "/ramenZenHead.PNG",
     },
     {
-      title: "Order and Delivery Webapp",
+      title: "E-commerce Webapp",
       img: "/SaladOnTheRunContent.PNG",
     },
     {
-      title: "Listing and Booking Webapp",
+      title: "Listing and Booking Platform",
       img: "/EngCityLinkerContent.PNG",
     },
     {
-      title: "Servers and Booking Webapp",
+      title: "Servers and Booking Online Shop",
       img: "/emberContent.PNG",
     },
   ];

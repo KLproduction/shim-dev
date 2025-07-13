@@ -46,7 +46,7 @@ export default function DotTransform() {
             }}
           >
             <h1 className="text-4xl font-bold text-zinc-900 lg:text-7xl">
-              Scroll to Transform
+              Provide What You Need
             </h1>
           </motion.div>
         </div>

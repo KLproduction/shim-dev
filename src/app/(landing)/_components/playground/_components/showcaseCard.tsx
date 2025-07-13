@@ -1,12 +1,18 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import React from "react";
+import React, { useRef } from "react";
 
-const ShowcaseCard = React.forwardRef<HTMLDivElement, Record<string, never>>(
-  (props, ref) => {
-    const { scrollYProgress } = useScroll({
-      target: ref,
-      offset: ["start start", "end center"],
-    });
+type ShowcaseCardProps = {
+  targetRef?: React.RefObject<HTMLDivElement | null>;
+};
+
+const ShowcaseCard: React.FC<ShowcaseCardProps> = ({ targetRef }) => {
+  // 若沒傳 targetRef 則自己建立一個
+  const localRef = useRef<HTMLDivElement>(null);
+  const ref = targetRef || localRef;
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end center"],
+  });
 
   const opacity1 = useTransform(scrollYProgress, [0, 0.3], [0.5, 1]);
   const y1 = useTransform(scrollYProgress, [0, 0.3], [-300, 0]);
@@ -21,7 +27,10 @@ const ShowcaseCard = React.forwardRef<HTMLDivElement, Record<string, never>>(
   const y4 = useTransform(scrollYProgress, [0, 0.3], [300, 0]);
 
   return (
-    <motion.div className="flex h-full w-full items-center justify-center p-3">
+    <motion.div
+      ref={ref}
+      className="flex h-full w-full items-center justify-center p-3"
+    >
       <motion.div className="grid grid-cols-2 gap-5 rounded-2xl p-10 opacity-80">
         <motion.img
           src="/ramenZenContent.PNG"
@@ -51,7 +60,7 @@ const ShowcaseCard = React.forwardRef<HTMLDivElement, Record<string, never>>(
           }}
         />
         <motion.img
-          src="emberContent.PNG"
+          src="/emberContent.PNG"
           alt=""
           className="h-[180px] w-[400px] shadow-xl"
           style={{
@@ -62,7 +71,6 @@ const ShowcaseCard = React.forwardRef<HTMLDivElement, Record<string, never>>(
       </motion.div>
     </motion.div>
   );
-  },
-);
+};
 
 export default ShowcaseCard;
