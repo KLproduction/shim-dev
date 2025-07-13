@@ -79,7 +79,7 @@ const Intro = (props: Props) => {
               >
                 {/* <RotateCard rotateY={0} perspective={1200}>
             </RotateCard> */}
-                <ShowcaseCard ref={sectionRef} />
+                <ShowcaseCard targetRef={sectionRef} />
               </motion.div>
             </div>
           </div>

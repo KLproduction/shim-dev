@@ -18,6 +18,7 @@ import Hero2 from "./_components/Hero2";
 
 import LightText from "./light/page";
 import DotTransform from "./_components/playground/DotTransform";
+import AboutMe from "./_components/AboutMe";
 
 type Props = {};
 
@@ -56,7 +57,8 @@ const Page = (props: Props) => {
         <WhatIDO />
         <ColorChange />
       </div>
-      <Intro />
+      {/* <Intro /> */}
+      <AboutMe />
       {/* <OffsetPlayground /> */}
       {/* <Playground3 /> */}
       {/* <Playground /> */}
