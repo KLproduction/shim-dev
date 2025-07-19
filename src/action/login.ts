@@ -5,13 +5,15 @@ import { createClient } from "@/utils/supabase/client";
 import { createClientServer } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "http://localhost:3000";
+
 export const GitHubLogin = async () => {
   const supabase = createClient();
   const provider = "github";
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider,
     options: {
-      redirectTo: "http://localhost:3000/auth/callback",
+      redirectTo: `${baseUrl}/auth/callback`,
     },
   });
   if (data.url) {
@@ -26,7 +28,7 @@ export const GoogleLogin = async () => {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider,
     options: {
-      redirectTo: "http://localhost:3000/auth/callback",
+      redirectTo: `${baseUrl}/auth/callback`,
     },
   });
   if (data.url) {
