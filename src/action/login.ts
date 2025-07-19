@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { createClient } from "@/utils/supabase/client";
 import { createClientServer } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
+import crypto from "crypto";
 
 export const GitHubLogin = async () => {
   const supabase = createClient();
