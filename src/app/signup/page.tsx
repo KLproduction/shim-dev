@@ -13,6 +13,7 @@ export default function SignUpPage() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const router = useRouter();
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "http://localhost:3000";
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,7 +24,7 @@ export default function SignUpPage() {
       email,
       password,
       options: {
-        emailRedirectTo: "http://localhost:3000/",
+        emailRedirectTo: `${baseUrl}/`,
       },
     });
     setLoading(false);

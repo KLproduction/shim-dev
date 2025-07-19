@@ -90,6 +90,7 @@ export function SignInModal({
 }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "http://localhost:3000";
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -114,7 +115,7 @@ export function SignInModal({
               const { error } = await supabase.auth.signInWithOAuth({
                 provider: "google",
                 options: {
-                  redirectTo: "http://localhost:3000/auth/callback",
+                  redirectTo: `${baseUrl}/auth/callback`,
                 },
               });
               setLoading(false);
@@ -133,7 +134,7 @@ export function SignInModal({
               const { error } = await supabase.auth.signInWithOAuth({
                 provider: "github",
                 options: {
-                  redirectTo: `http://localhost:3000/auth/callback?next=${encodeURIComponent(pathname)}`,
+                  redirectTo: `${baseUrl}/auth/callback?next=${encodeURIComponent(pathname)}`,
                 },
               });
               setLoading(false);
