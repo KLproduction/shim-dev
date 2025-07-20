@@ -25,15 +25,15 @@ const FeaturesTitle = ({ children, id }: Props) => {
     }
   }, [isInView, id, setInViewFeature, inViewFeature]);
   return (
-    <p
+    <div
       className={cn(
         "font-heading feature-title py-16 text-5xl font-bold",
         isInView ? "text-zinc-800" : "text-zinc-300",
       )}
       ref={ref}
     >
-      {children}
-    </p>
+      <div>{children}</div>
+    </div>
   );
 };
 

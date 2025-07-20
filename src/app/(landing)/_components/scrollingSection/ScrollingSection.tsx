@@ -74,7 +74,12 @@ const ScrollingSection = (props: Props) => {
             <ul>
               {features.map((feature) => (
                 <li key={feature.id}>
-                  <FeaturesTitle id={feature.id}>{feature.title}</FeaturesTitle>
+                  <FeaturesTitle id={feature.id}>
+                    <div className="flex flex-col gap-2">
+                      <div className="text-sm">{feature.subTitle}</div>
+                      <div className="font-milker">{feature.title}</div>
+                    </div>
+                  </FeaturesTitle>
                 </li>
               ))}
             </ul>

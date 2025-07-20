@@ -76,8 +76,8 @@ const WhatIDO = (props: Props) => {
                 src={services[activeIndex].img}
                 alt="background"
                 className="z-0 h-[80%] w-[80%] object-fill object-center"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 0.5 }}
+                initial={{ opacity: 0, filter: "blur(10px)" }}
+                animate={{ opacity: 0.5, filter: "blur(0px)" }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 1, ease: "easeInOut" }}
               />

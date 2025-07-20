@@ -16,39 +16,31 @@ import {
 
 export const features = [
   {
-    title: "Use your calendar as a todo list",
+    title: "Salad on the Run",
+    subTitle: "Food Order and Delivery",
     id: "todo-list",
     Card: ToDo,
     Visual: SaladOnTheRunVisual,
   },
   {
-    title: "Color your calendar to organize",
+    title: "Ember Salon",
+    subTitle: "Hair Salon Booking and Management",
     id: "colors",
     Card: Colors,
     Visual: EmberVisual,
   },
   {
-    title: "Instantly know if someone is available",
+    title: "Eng City Linker",
+    subTitle: "Language Learning Platform",
     id: "availability",
     Card: Availability,
     Visual: EngCityLinkerVisual,
   },
   {
-    title: "Track what you listened to when",
+    title: "Ramen Zen ",
+    subTitle: "Japanese Restaurant Promote Page",
     id: "music",
     Card: Music,
     Visual: RamenZenVisual,
-  },
-  {
-    title: "Send scheduling links guests love",
-    id: "scheduling-links",
-    Card: Scheduling,
-    Visual: OtherVisual,
-  },
-  {
-    title: "Always know what your team is up to",
-    id: "team",
-    Card: Team,
-    Visual: OtherVisual,
   },
 ];

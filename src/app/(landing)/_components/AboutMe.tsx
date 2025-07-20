@@ -45,27 +45,32 @@ const AboutMe = (props: Props) => {
               className="h-full w-full overflow-hidden"
               style={{ perspective: 1000 }}
             >
+              {/* RIGHT CONTAINER: Tech Stack Grid */}
               <motion.div
-                className="absolute top-1/2 left-0 w-1/2 -translate-y-1/2"
+                className="absolute top-0 right-0 h-1/2 w-full md:h-full md:w-1/2"
                 style={{
-                  rotateY: rotateYLeft,
+                  rotateY: rotateYRight,
                   transformStyle: "preserve-3d",
-                  z: zMoveLeft,
-                  opacity: opacityTextleft,
+                  z: zMoveRight,
+                  opacity: opacityTextRight,
                 }}
               >
                 <motion.div
                   className="grid w-full origin-top-left grid-cols-2 gap-6 p-10 md:grid-cols-4 md:p-20"
-                  initial={{ rotate: 10, x: -100, y: -100, opacity: 0 }}
-                  whileInView={{ rotate: 0, x: 0, y: 0, opacity: 1 }}
+                  initial={{ rotate: 10, opacity: 0 }}
+                  whileInView={{ rotate: 0, opacity: 1 }}
                   transition={{ duration: 0.5, ease: "easeInOut" }}
                 >
                   {techStack.map((tech, index) => (
                     <motion.div
                       key={tech.name}
                       className="flex flex-col items-center gap-2"
-                      initial={{ x: -(index * 10 + 100), opacity: 0 }}
-                      whileInView={{ rotate: 0, x: 0, opacity: 1 }}
+                      initial={{
+                        x: -(index * 10 + 100),
+                        rotateX: 180,
+                        opacity: 0,
+                      }}
+                      whileInView={{ x: 0, opacity: 1, rotateX: 0 }}
                       transition={{
                         duration: 1 + index * 0.1,
                         ease: "easeInOut",
@@ -85,13 +90,14 @@ const AboutMe = (props: Props) => {
                   ))}
                 </motion.div>
               </motion.div>
+              {/* LEFT CONTAINER: About Me Text */}
               <motion.div
-                className="absolute top-0 right-0 h-1/2 w-full md:h-full md:w-1/2"
+                className="absolute top-1/2 left-0 w-1/2 -translate-y-1/2"
                 style={{
-                  rotateY: rotateYRight,
+                  rotateY: rotateYLeft,
                   transformStyle: "preserve-3d",
-                  z: zMoveRight,
-                  opacity: opacityTextRight,
+                  z: zMoveLeft,
+                  opacity: opacityTextleft,
                 }}
               >
                 <div className="flex h-full w-full flex-col items-center justify-center gap-6 rounded-2xl border border-zinc-200 bg-white/80 p-8 shadow-2xl md:p-20">
