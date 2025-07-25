@@ -95,7 +95,7 @@ const ScrollingSectionMobile = (props: Props) => {
             <div
               className={cn(
                 "feature-card relative aspect-video w-full origin-bottom-left rounded-2xl bg-transparent shadow-2xl",
-                // isMobile ? "aspect-[9/16]" : "aspect-video",
+                isMobile ? "aspect-[9/16]" : "aspect-video",
               )}
             >
               {features.map((feature) => (
