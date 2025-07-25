@@ -4,6 +4,7 @@ import { useFeatureStore } from "@/hook/store";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import React, { useEffect } from "react";
+import { useMediaQuery } from "react-responsive";
 
 type Props = {
   gradient?: string;
@@ -22,6 +23,12 @@ export const FeaturesCard = ({ gradient, children, id }: Props) => {
   const isFullScreenFeature = useFeatureStore(
     (state) => state.fullScreenFeatures,
   );
+  const isMobile = useMediaQuery({ maxWidth: 767 });
+
+  useEffect(() => {
+    console.log("isFullScreenFeature", isFullScreenFeature);
+  }, [isFullScreenFeature, id, setFullScreenFeature]);
+
   return (
     <div
       className={cn(
@@ -30,25 +37,47 @@ export const FeaturesCard = ({ gradient, children, id }: Props) => {
         inViewFeature === id ? "opacity-100" : "opacity-0",
       )}
     >
-      {children}
-      <button
-        onClick={() => setFullScreenFeature(id)}
-        className="show-me-btn absolute right-3 bottom-3 z-50 cursor-pointer rounded-xl bg-zinc-800 px-4 py-2 text-white shadow-2xl"
-      >
-        Show me
-      </button>
+      {isMobile ? (
+        <div
+          onClick={() => setFullScreenFeature(id)}
+          style={{ cursor: "pointer", width: "100%", height: "100%" }}
+        >
+          {children}
+        </div>
+      ) : (
+        <>
+          {children}
+          <button
+            onClick={() => setFullScreenFeature(id)}
+            className="show-me-btn absolute right-3 bottom-3 z-50 hidden cursor-pointer rounded-xl bg-zinc-800 px-4 py-2 text-white shadow-2xl md:block"
+          >
+            Show me
+          </button>
+        </>
+      )}
     </div>
   );
 };
+
 export const ToDo = ({ id }: CardProps) => {
+  const isMobile = useMediaQuery({ maxWidth: 767 });
   return (
     <FeaturesCard id={id} gradient="from-[#FFFFFF] to-[#F8B195]">
-      <Image
-        src="/SaladOnTheRunHead.PNG"
-        alt="SaladOnTheRunHead"
-        className="object-cover object-center"
-        fill
-      />
+      {isMobile ? (
+        <Image
+          src="/SaladOnTheRunMobile.PNG"
+          alt="SaladOnTheRunHead"
+          className="object-cover object-center"
+          fill
+        />
+      ) : (
+        <Image
+          src="/SaladOnTheRunHead.PNG"
+          alt="SaladOnTheRunHead"
+          className="object-cover object-center"
+          fill
+        />
+      )}
     </FeaturesCard>
   );
 };

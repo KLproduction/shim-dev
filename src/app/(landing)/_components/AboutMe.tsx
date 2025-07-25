@@ -38,7 +38,10 @@ const AboutMe = (props: Props) => {
 
   return (
     <div>
-      <div className="bg-background relative h-[250vh] w-full" ref={sectionRef}>
+      <div
+        className="bg-background relative hidden h-[250vh] w-full md:block"
+        ref={sectionRef}
+      >
         <div className="relative h-full w-full">
           <div className="sticky top-0 h-screen w-full">
             <div

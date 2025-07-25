@@ -35,14 +35,39 @@ const WhatIDO = (props: Props) => {
       img: "/emberContent.PNG",
     },
   ];
+  const servicesMobile = [
+    {
+      title: "Branding Webpages",
+      img: "/remanzenMobile.png",
+    },
+    {
+      title: "E-commerce Webapp",
+      img: "/SaladOnTheRunMobile.PNG",
+    },
+    {
+      title: "Listing and Booking Platform",
+      img: "/englinkMobile.png",
+    },
+    {
+      title: "Servers and Booking Online Shop",
+      img: "/emberMobile.PNG",
+    },
+  ];
 
   const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [isVertical, setIsVertical] = useState<boolean>(false);
   const refs = useRef<(HTMLDivElement | null)[]>([]);
 
   const ref = useRef<HTMLParagraphElement>(null);
   const isInView = useInView(ref, { once: false, margin: "50% 0% -30% 0%" });
 
   useEffect(() => {
+    const checkOrientation = () => {
+      setIsVertical(window.innerHeight > window.innerWidth);
+    };
+    checkOrientation();
+    window.addEventListener("resize", checkOrientation);
+
     const handleScroll = () => {
       let found = false;
       refs.current.forEach((el, idx) => {
@@ -61,7 +86,10 @@ const WhatIDO = (props: Props) => {
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", checkOrientation);
+    };
   }, []);
 
   return (
@@ -72,8 +100,12 @@ const WhatIDO = (props: Props) => {
           <div className="sticky top-0 h-screen w-full">
             <div className="flex h-full w-full items-center justify-center">
               <motion.img
-                key={activeIndex}
-                src={services[activeIndex].img}
+                key={activeIndex + (isVertical ? "-vertical" : "-horizontal")}
+                src={
+                  isVertical
+                    ? servicesMobile[activeIndex].img
+                    : services[activeIndex].img
+                }
                 alt="background"
                 className="z-0 h-[80%] w-[80%] object-fill object-center"
                 initial={{ opacity: 0, filter: "blur(10px)" }}

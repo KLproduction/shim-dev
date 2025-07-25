@@ -45,9 +45,15 @@ export default function DotTransform() {
               once: false,
             }}
           >
-            <h1 className="text-4xl font-bold text-zinc-900 lg:text-7xl">
+            <h1 className="hidden text-4xl font-bold text-zinc-900 md:block lg:text-7xl">
               Provide What You Need
             </h1>
+            <div className="flex flex-col items-start text-4xl font-bold text-zinc-900 md:hidden">
+              <h1>Provide</h1>
+              <h1>What</h1>
+              <h1>You</h1>
+              <h1>Need</h1>
+            </div>
           </motion.div>
         </div>
 

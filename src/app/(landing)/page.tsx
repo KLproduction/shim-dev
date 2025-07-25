@@ -19,6 +19,8 @@ import Hero2 from "./_components/Hero2";
 import LightText from "./light/page";
 import DotTransform from "./_components/playground/DotTransform";
 import AboutMe from "./_components/AboutMe";
+import AboutMeMobile from "./_components/AboutMeMobile";
+import ScrollingSectionMobile from "./_components/scrollingSection/ScrollingSectionMobile";
 
 type Props = {};
 
@@ -59,15 +61,13 @@ const Page = (props: Props) => {
       </div>
       {/* <Intro /> */}
       <AboutMe />
-      {/* <OffsetPlayground /> */}
-      {/* <Playground3 /> */}
-      {/* <Playground /> */}
-
+      <AboutMeMobile />
       <Playground2 />
 
       <div className="bg-background relative z-10">
         <div className="mx-auto max-w-6xl px-4">
           <ScrollingSection />
+          <ScrollingSectionMobile />
           <div className="h-screen">more space</div>
         </div>
       </div>
