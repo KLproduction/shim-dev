@@ -1,8 +1,8 @@
 import {
-  Availability,
-  Colors,
-  Music,
-  ToDo,
+  Salad,
+  Salon,
+  English,
+  Reman,
 } from "@/app/(landing)/_components/scrollingSection/FeaturesCard";
 import {
   EmberVisual,
@@ -17,28 +17,28 @@ export const features = [
     title: "Salad on the Run",
     subTitle: "Food Order and Delivery",
     id: "salad",
-    Card: ToDo,
+    Card: Salad,
     Visual: SaladOnTheRunVisual,
   },
   {
     title: "Salon Shim",
     subTitle: "Hair Salon Booking and Management",
     id: "salon",
-    Card: Colors,
+    Card: Salon,
     Visual: EmberVisual,
   },
   {
     title: "EngCity Linker",
     subTitle: "Language Learning Platform",
     id: "engcitylinker",
-    Card: Availability,
+    Card: English,
     Visual: EngCityLinkerVisual,
   },
   {
     title: "RamenZen ",
     subTitle: "Japanese Restaurant Promote Page",
     id: "ramenzen",
-    Card: Music,
+    Card: Reman,
     Visual: RamenZenVisual,
   },
 ];

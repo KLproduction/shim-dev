@@ -37,7 +37,7 @@ const AboutMeMobile = (props: Props) => {
   const opacityTextRight = useTransform(scrollYProgress, [0.6, 0.95], [1, 0]);
 
   return (
-    <div>
+    <div className="md:hidden">
       <div className="bg-background relative h-[250vh] w-full" ref={sectionRef}>
         <div className="h-full w-full">
           <div

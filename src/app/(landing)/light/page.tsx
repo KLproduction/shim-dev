@@ -9,7 +9,7 @@ export default function LightText() {
   const [angle, setAngle] = useState(0.5); // 0.5turn ~ 0.3turn
 
   // 監聽動畫進度
-  const handleUpdate = (latest: any) => {
+  const handleUpdate = (latest: Record<string, string>) => {
     if (latest["--rotate"]) {
       // 轉成 0~1 的 turn
       const turn = parseFloat(latest["--rotate"].replace("turn", ""));

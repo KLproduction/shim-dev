@@ -27,11 +27,11 @@ const WhatIDO = (props: Props) => {
       img: "/SaladOnTheRunContent.PNG",
     },
     {
-      title: "Listing and Booking Platform",
+      title: "Listing Platform",
       img: "/EngCityLinkerContent.PNG",
     },
     {
-      title: "Servers and Booking Online Shop",
+      title: "Servers and Appointment Booking",
       img: "/emberContent.PNG",
     },
   ];
@@ -45,11 +45,11 @@ const WhatIDO = (props: Props) => {
       img: "/SaladOnTheRunMobile.PNG",
     },
     {
-      title: "Listing and Booking Platform",
+      title: "Listing Platform",
       img: "/englinkMobile.png",
     },
     {
-      title: "Servers and Booking Online Shop",
+      title: "Servers and Appointment Booking",
       img: "/emberMobile.PNG",
     },
   ];

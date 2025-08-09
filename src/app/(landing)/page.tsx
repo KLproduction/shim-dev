@@ -6,15 +6,10 @@ import { motion } from "framer-motion";
 
 import WhatIDO from "./_components/what-i-do/WhatIDO";
 import ColorChange from "./_components/colorChange/colorChange";
-import Hero1 from "./_components/Hero1";
-import Intro from "./_components/intro/Intro";
-import Playground from "./_components/playground/Playground";
+
 import Playground2 from "./_components/playground/Playground2";
-import { useScrollFullScreen } from "@/hook/useScrollFullScreen";
-import Playground3 from "./_components/playground/Playground3";
-import OffsetPlayground from "./_components/playground/OffsetPlayground";
+
 import Lenis from "lenis";
-import Hero2 from "./_components/Hero2";
 
 import LightText from "./light/page";
 import DotTransform from "./_components/playground/DotTransform";
@@ -43,16 +38,10 @@ const Page = (props: Props) => {
     };
   }, []);
 
-  // useScrollFullScreen();
-
   return (
     <main>
       <div>
-        {/* <div className="sticky top-0 z-0 h-screen">
-          <Hero1 />
-        </div> */}
         <LightText />
-
         <DotTransform />
       </div>
       <div className="relative z-10">

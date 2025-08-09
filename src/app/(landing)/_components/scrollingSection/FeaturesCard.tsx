@@ -47,7 +47,7 @@ export const FeaturesCard = ({ gradient, children, id }: Props) => {
           {children}
           <button
             onClick={() => setFullScreenFeature(id)}
-            className="show-me-btn absolute right-3 bottom-3 z-50 hidden cursor-pointer rounded-xl bg-zinc-800 px-4 py-2 text-white shadow-2xl md:block"
+            className="show-me-btn absolute right-3 bottom-3 z-50 hidden cursor-pointer rounded-xl border border-zinc-800 bg-zinc-50 px-4 py-2 text-zinc-800 shadow-2xl md:block"
           >
             Show me
           </button>
@@ -57,7 +57,7 @@ export const FeaturesCard = ({ gradient, children, id }: Props) => {
   );
 };
 
-export const ToDo = ({ id }: CardProps) => {
+export const Salad = ({ id }: CardProps) => {
   const isMobile = useMediaQuery({ maxWidth: 767 });
   return (
     <FeaturesCard id={id} gradient="from-[#FFFFFF] to-[#F8B195]">
@@ -79,7 +79,7 @@ export const ToDo = ({ id }: CardProps) => {
     </FeaturesCard>
   );
 };
-export const Colors = ({ id }: CardProps) => {
+export const Salon = ({ id }: CardProps) => {
   const isMobile = useMediaQuery({ maxWidth: 767 });
   return (
     <FeaturesCard id={id} gradient="from-[#F8B195] to-[#F67280]">
@@ -101,7 +101,7 @@ export const Colors = ({ id }: CardProps) => {
     </FeaturesCard>
   );
 };
-export const Availability = ({ id }: CardProps) => {
+export const English = ({ id }: CardProps) => {
   const isMobile = useMediaQuery({ maxWidth: 767 });
   return (
     <FeaturesCard id={id} gradient="from-[#ffffff] to-[#fff9e]">
@@ -123,7 +123,7 @@ export const Availability = ({ id }: CardProps) => {
     </FeaturesCard>
   );
 };
-export const Music = ({ id }: CardProps) => {
+export const Reman = ({ id }: CardProps) => {
   const isMobile = useMediaQuery({ maxWidth: 767 });
   return (
     <FeaturesCard id={id} gradient="from-[#B7F3D0] to-[#EFF9E]">

@@ -27,7 +27,10 @@ const Visual = ({ children, id }: Props) => {
         `visual-${id}`,
       )}
     >
-      <div className="relative max-w-6xl px-4">{children}</div>
+      {/* Close X button */}
+      <div className="relative max-w-6xl px-4">
+        <>{children}</>
+      </div>
 
       <Button
         className={cn(
@@ -47,23 +50,100 @@ const SaladOnTheRunVisual = ({ id }: VisualProps) => {
   const isFullScreenFeature = useFeatureStore(
     (state) => state.fullScreenFeatures,
   );
+  const videoRef = React.useRef<HTMLVideoElement>(null);
+  const [shouldPlay, setShouldPlay] = React.useState(false);
+  const [videoSrc, setVideoSrc] = React.useState<string | undefined>(
+    "/SaladOnTheRunVideo.mp4",
+  );
+
+  React.useEffect(() => {
+    if (isFullScreenFeature === id) {
+      setShouldPlay(true);
+      setVideoSrc("/SaladOnTheRunVideo.mp4");
+    } else {
+      setShouldPlay(false);
+      setVideoSrc(undefined);
+    }
+  }, [isFullScreenFeature, id]);
+
+  React.useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (shouldPlay) {
+      video.currentTime = 0;
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {});
+      }
+    } else {
+      video.pause();
+      video.removeAttribute("src");
+      video.load();
+    }
+  }, [shouldPlay]);
+
   return (
     <Visual id={id}>
-      <img
-        src="/SaladOnTheRunContent.PNG"
-        alt="SaladOnTheRunContent"
-        className={cn("object-cover object-center")}
+      <video
+        ref={videoRef}
+        key={shouldPlay ? `video-${id}-active` : `video-${id}`}
+        src={videoSrc}
+        className={cn("h-full w-full object-cover object-center")}
+        autoPlay
+        loop
+        playsInline
+        controls={false}
       />
     </Visual>
   );
 };
 const EmberVisual = ({ id }: VisualProps) => {
+  const isFullScreenFeature = useFeatureStore(
+    (state) => state.fullScreenFeatures,
+  );
+  const videoRef = React.useRef<HTMLVideoElement>(null);
+  const [shouldPlay, setShouldPlay] = React.useState(false);
+  const [videoSrc, setVideoSrc] = React.useState<string | undefined>(
+    "/SalonVideo.mp4",
+  );
+
+  React.useEffect(() => {
+    if (isFullScreenFeature === id) {
+      setShouldPlay(true);
+      setVideoSrc("/SalonVideo.mp4");
+    } else {
+      setShouldPlay(false);
+      setVideoSrc(undefined);
+    }
+  }, [isFullScreenFeature, id]);
+
+  React.useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (shouldPlay) {
+      video.currentTime = 0;
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {});
+      }
+    } else {
+      video.pause();
+      video.removeAttribute("src");
+      video.load();
+    }
+  }, [shouldPlay]);
+
   return (
     <Visual id={id}>
-      <img
-        src="/emberContent.PNG"
-        alt="emberContent"
-        className={cn("object-cover object-center")}
+      <video
+        ref={videoRef}
+        key={shouldPlay ? `video-${id}-active` : `video-${id}`}
+        src={videoSrc}
+        className={cn("h-full w-full object-cover object-center")}
+        autoPlay
+        loop
+        playsInline
+        controls={false}
       />
     </Visual>
   );
