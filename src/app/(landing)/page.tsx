@@ -57,7 +57,7 @@ const Page = (props: Props) => {
         <div className="mx-auto max-w-6xl px-4">
           <ScrollingSection />
           <ScrollingSectionMobile />
-          <div className="h-screen bg-black">more space</div>
+          <div className="h-screen bg-white"></div>
         </div>
       </div>
     </main>
