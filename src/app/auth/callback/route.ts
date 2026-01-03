@@ -29,7 +29,7 @@ export async function GET(request: Request) {
           });
         }
       }
-      // redirect 喺呢度就可以
+
       const forwardedHost = request.headers.get("x-forwarded-host");
       const isLocalEnv = process.env.NODE_ENV === "development";
       if (isLocalEnv) {
@@ -42,6 +42,5 @@ export async function GET(request: Request) {
     }
   }
 
-  // code 無效或有 error，都去 error page
   return NextResponse.redirect(`${origin}/auth/auth-code-error`);
 }
