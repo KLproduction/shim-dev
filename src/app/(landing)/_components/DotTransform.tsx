@@ -60,14 +60,8 @@ export default function DotTransform() {
             }}
           >
             <h1 className="hidden text-4xl font-bold text-zinc-900 md:block lg:text-7xl">
-              Provide What You Need
+              We Provide
             </h1>
-            <div className="flex flex-col items-start text-4xl font-bold text-zinc-900 md:hidden">
-              <h1>Provide</h1>
-              <h1>What</h1>
-              <h1>You</h1>
-              <h1>Need</h1>
-            </div>
           </motion.div>
         </div>
 
@@ -102,7 +96,7 @@ export default function DotTransform() {
               <div className="relative inline-block">
                 {/* Outline (stroke) */}
                 <span className="block text-4xl tracking-[0.22em] text-transparent uppercase [-webkit-text-stroke:2px_rgba(255,255,255,0.85)] md:text-7xl lg:text-8xl">
-                  branding
+                  BEST FOR
                 </span>
 
                 {/* Fill reveal */}
@@ -110,7 +104,7 @@ export default function DotTransform() {
                   className="absolute inset-0 block text-4xl tracking-[0.22em] text-white uppercase md:text-7xl lg:text-8xl"
                   style={{ opacity: fillOpacity }}
                 >
-                  branding
+                  BEST FOR
                 </motion.span>
 
                 {/* Shimmer overlay (clipped to text) */}
@@ -132,7 +126,7 @@ export default function DotTransform() {
               <div className="relative inline-block">
                 {/* Outline (stroke) */}
                 <span className="block text-4xl tracking-[0.28em] text-transparent uppercase [-webkit-text-stroke:2px_rgba(255,255,255,0.75)] md:text-7xl">
-                  operation
+                  Start Up / Scale Up
                 </span>
 
                 {/* Fill reveal */}
@@ -140,7 +134,7 @@ export default function DotTransform() {
                   className="absolute inset-0 block text-4xl tracking-[0.28em] text-white/95 uppercase md:text-7xl"
                   style={{ opacity: fillOpacity }}
                 >
-                  operation
+                  Start Up / Scale Up
                 </motion.span>
 
                 {/* Shimmer overlay */}
@@ -154,7 +148,7 @@ export default function DotTransform() {
                     backgroundPosition: shimmerBgPos,
                   }}
                 >
-                  operation
+                  Start Up / Scale Up
                 </motion.span>
               </div>
             </motion.div>

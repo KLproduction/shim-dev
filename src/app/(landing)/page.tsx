@@ -15,6 +15,7 @@ import CaptionScroll from "./_components/captionScroll";
 import PricingSection from "./_components/PricingSection";
 import WhyUs from "./_components/WhyUs";
 import DotTransform from "./_components/DotTransform";
+import ContactMe from "./_components/ContactMe";
 
 type Props = {};
 
@@ -39,28 +40,42 @@ const Page = (props: Props) => {
 
   return (
     <main>
-      <div>
+      <section id="home">
         <LightText />
-        <DotTransform />
+        {/* <DotTransform /> */}
         <div>
           <FeatureTransform />
         </div>
-      </div>
+      </section>
       <CaptionScroll
         caption="SELECTED WORK"
         className="bg-background h-screen w-full"
+        id="work"
       />
-
-      <div className="relative z-10">{/* <WhatIDO /> */}</div>
-
-      <div className="bg-background relative z-10">
+      <div className="h-screen w-full">
+        <ColorChange />
+      </div>
+      <section id="features" className="bg-foreground relative z-10">
         <div className="mx-auto max-w-6xl px-4">
           <ScrollingSection />
           <ScrollingSectionMobile />
         </div>
+      </section>
+      <div className="h-screen w-full">
+        <ColorChange fromBackground="bg-zinc-50" toBackground="bg-background" />
       </div>
-      <PricingSection />
-      <WhyUs />
+      <section id="pricing">
+        <PricingSection />
+      </section>
+      <section id="why-us">
+        <WhyUs />
+      </section>
+      <div className="h-screen w-full">
+        <ColorChange />
+      </div>
+      <section id="contact">
+        <ContactMe />
+      </section>
     </main>
   );
 };

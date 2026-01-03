@@ -1,24 +1,42 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
-type Props = {};
+type Props = {
+  fromBackground?: string;
+  toBackground?: string;
+};
 
-const ColorChange = (props: Props) => {
+const ColorChange = ({ fromBackground, toBackground }: Props) => {
   const targetRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
-    offset: ["start start", "end end"],
+    offset: ["start center", "end end"],
   });
 
-  const opacity = useTransform(scrollYProgress, [0.5, 1], [0, 1]);
+  const opacity = useTransform(scrollYProgress, [0.9, 1], [0, 1]);
+  const blur = useTransform(
+    scrollYProgress,
+    [0.9, 1],
+    ["blur(12px)", "blur(0px)"],
+  );
 
   return (
-    <section ref={targetRef} className="relative h-screen w-full bg-black">
+    <section
+      ref={targetRef}
+      className={cn(
+        "relative h-screen w-full",
+        fromBackground ? fromBackground : "bg-background",
+      )}
+    >
       <motion.div
-        className="bg-background absolute inset-0 h-screen w-full transition-opacity duration-200"
-        style={{ opacity }}
+        className={cn(
+          "absolute inset-0 h-screen w-full transition-opacity duration-200",
+          toBackground ? toBackground : "bg-foreground",
+        )}
+        style={{ opacity, filter: blur }}
       />
     </section>
   );

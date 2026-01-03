@@ -12,6 +12,7 @@ import {
 type CaptionScrollProps = {
   caption: string;
   className?: string;
+  id?: string;
   fromScale?: number;
   toScale?: number;
   fromOpacity?: number;
@@ -21,6 +22,7 @@ type CaptionScrollProps = {
 export default function CaptionScroll({
   caption,
   className,
+  id,
   fromScale = 1.4,
   toScale = 0.8,
   fromOpacity = 1,
@@ -43,6 +45,7 @@ export default function CaptionScroll({
 
   return (
     <div
+      id={id}
       ref={containerRef}
       className={[
         "relative z-50 flex min-h-screen w-full items-center justify-center overflow-hidden px-4 py-16 sm:px-8 lg:px-12",

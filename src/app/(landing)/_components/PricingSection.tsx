@@ -195,8 +195,8 @@ export default function PricingSection() {
             variants={itemVariants}
             className="mt-6 max-w-3xl text-lg leading-tight font-medium text-[#A1A1AA] md:text-xl lg:text-2xl"
           >
-            From a fast launch landing page to a scalable login + admin build.
-            Each tier has a clear scope to keep projects predictable.
+            {` From a fast launch landing page to a scalable login + admin build.
+            Each tier has a clear scope to keep projects predictable.`}
           </motion.p>
         </motion.div>
 
@@ -323,16 +323,16 @@ export default function PricingSection() {
             variants={itemVariants}
             className="text-3xl font-bold tracking-tight text-[#FAFAFA] uppercase"
           >
-            What's included
+            {`What's included`}
           </motion.p>
           <motion.p
             variants={itemVariants}
             className="mt-4 text-lg leading-tight font-medium text-[#A1A1AA] md:text-xl lg:text-2xl"
           >
-            All tiers include basic usability (readability, tap targets, form
+            {` All tiers include basic usability (readability, tap targets, form
             validation), sensible security defaults, and a simple handover.
             Monthly maintenance (updates, backups, monitoring) can be added as
-            an optional plan.
+            an optional plan.`}
           </motion.p>
         </motion.div>
       </div>

@@ -74,7 +74,7 @@ const ScrollingSectionMobile = (props: Props) => {
           <feature.Visual key={feature.id} id={feature.id} />
         ))}
 
-        <div className="bg-background flex w-full items-start gap-20">
+        <div className="flex w-full items-start gap-20">
           <div className="w-full py-[50vh]">
             <ul>
               {features.map((feature) => (
