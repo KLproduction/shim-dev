@@ -207,21 +207,21 @@ const MarqueeRow = ({
       >
         <div className="flex items-center gap-8 text-2xl font-bold tracking-tighter text-[#000000] uppercase md:text-4xl">
           <span>BUILD FAST</span>
-          <span className="text-[#DFE104]">///</span>
+          <span className="text-[#DFE104]">{"///"}</span>
           <span>LAUNCH SMART</span>
-          <span className="text-[#DFE104]">///</span>
+          <span className="text-[#DFE104]">{"///"}</span>
           <span>SCALE WHEN READY</span>
-          <span className="text-[#DFE104]">///</span>
+          <span className="text-[#DFE104]">{"///"}</span>
           <span>LET’S TALK</span>
         </div>
 
         <div className="flex items-center gap-8 text-2xl font-bold tracking-tighter text-[#000000] uppercase md:text-4xl">
           <span>BUILD FAST</span>
-          <span className="text-[#DFE104]">///</span>
+          <span className="text-[#DFE104]">{"///"}</span>
           <span>LAUNCH SMART</span>
-          <span className="text-[#DFE104]">///</span>
+          <span className="text-[#DFE104]">{"///"}</span>
           <span>SCALE WHEN READY</span>
-          <span className="text-[#DFE104]">///</span>
+          <span className="text-[#DFE104]">{"///"}</span>
           <span>LET’S TALK</span>
         </div>
       </motion.div>
@@ -267,7 +267,7 @@ const ContactMe = (props: Props) => {
               {...headingMotion}
               className="text-[clamp(3rem,12vw,14rem)] leading-[0.8] font-bold tracking-tighter uppercase"
             >
-              Let&apos;s Build It
+              {`Let's Build It`}
             </motion.h2>
             <p className="max-w-xl text-lg font-medium text-[#A1A1AA] md:text-xl lg:text-2xl">
               Share the vision. We&apos;ll shape the roadmap, scope the build,
