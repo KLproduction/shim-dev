@@ -23,8 +23,8 @@ const TIERS: PricingTier[] = [
   {
     name: "Starter Launch",
     tagline: "A high-converting landing page to ship fast.",
-    price: "$400",
-    originalPrice: "$500",
+    price: "£400",
+    originalPrice: "£500",
     period: "one-time",
     badge: "Founding Offer",
     features: [
@@ -41,8 +41,8 @@ const TIERS: PricingTier[] = [
   {
     name: "Growth Site",
     tagline: "Business website + CMS so you can update content.",
-    price: "$1,300",
-    originalPrice: "$1,600",
+    price: "£1,300",
+    originalPrice: "£1,600",
     period: "one-time",
     highlighted: true,
     badge: "Most Popular",
@@ -61,8 +61,8 @@ const TIERS: PricingTier[] = [
   {
     name: "Pro Partner Build",
     tagline: "Login + admin dashboard for scalable web apps.",
-    price: "$3,200+",
-    originalPrice: "$4,000+",
+    price: "£3,200+",
+    originalPrice: "£4,000+",
     period: "from",
     badge: "Limited slots",
     features: [

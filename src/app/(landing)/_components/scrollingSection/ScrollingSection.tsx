@@ -85,7 +85,7 @@ const ScrollingSection = (props: Props) => {
             </ul>
           </div>
           <div className="sticky top-0 flex h-screen w-full items-center">
-            <div className="feature-card relative aspect-video w-full origin-bottom-left rounded-2xl bg-transparent shadow-2xl">
+            <div className="feature-card relative z-10 aspect-video w-full origin-bottom-left rounded-2xl bg-transparent shadow-2xl">
               {features.map((feature) => (
                 <feature.Card key={feature.id} id={feature.id} />
               ))}

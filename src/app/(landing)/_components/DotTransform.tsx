@@ -43,6 +43,24 @@ export default function DotTransform() {
   const shimmerX = useTransform(scrollYProgress, [0.72, 1], ["-160%", "160%"]);
   const shimmerBgPos = useMotionTemplate`${shimmerX} 50%`;
 
+  const WORDS = ["shimg", "solution"] as const;
+  // const WORDS = ["start up", "scale up", "build fast", "kick start"] as const;
+
+  const makeRow = (repeat: number, offset: number) =>
+    Array.from(
+      { length: repeat },
+      (_, i) => WORDS[(i + offset) % WORDS.length],
+    );
+
+  const ROWS = [
+    makeRow(18, 0),
+    makeRow(18, 1),
+    makeRow(18, 2),
+    makeRow(18, 3),
+    makeRow(18, 0),
+    makeRow(18, 3),
+  ];
+
   return (
     <section ref={ref} className="relative h-[250vh] w-full">
       <div className="sticky top-0 h-screen w-full overflow-hidden">
@@ -80,7 +98,6 @@ export default function DotTransform() {
             clipPath: `circle(${isHalf ? large : small} at 50% 50vh)`,
           }}
           transition={{ clipPath: { duration: 1, ease: "easeInOut" } }}
-          style={{ backgroundImage: "url(/remantable.png)" }}
         >
           <div className="flex h-full w-full items-center justify-center bg-black/50">
             <motion.div
@@ -93,68 +110,80 @@ export default function DotTransform() {
               }}
             >
               {/* BRANDING */}
-              <div className="relative inline-block">
-                {/* Outline (stroke) */}
-                <span className="block text-4xl tracking-[0.22em] text-transparent uppercase [-webkit-text-stroke:2px_rgba(255,255,255,0.85)] md:text-7xl lg:text-8xl">
-                  BEST FOR
-                </span>
-
-                {/* Fill reveal */}
-                <motion.span
-                  className="absolute inset-0 block text-4xl tracking-[0.22em] text-white uppercase md:text-7xl lg:text-8xl"
-                  style={{ opacity: fillOpacity }}
-                >
-                  BEST FOR
-                </motion.span>
-
-                {/* Shimmer overlay (clipped to text) */}
-                <motion.span
-                  className="absolute inset-0 block bg-clip-text text-4xl tracking-[0.22em] text-transparent uppercase opacity-80 mix-blend-screen md:text-7xl lg:text-8xl"
-                  style={{
-                    opacity: fillOpacity,
-                    backgroundImage:
-                      "linear-gradient(110deg, rgba(255,255,255,0) 35%, rgba(255,255,255,0.95) 50%, rgba(255,255,255,0) 65%)",
-                    backgroundSize: "240% 100%",
-                    backgroundPosition: shimmerBgPos,
-                  }}
-                ></motion.span>
-              </div>
-
-              <div className="mx-auto h-px w-24 bg-white/70 md:w-28" />
-
-              {/* OPERATION */}
-              <div className="relative inline-block">
-                {/* Outline (stroke) */}
-                <span className="block text-4xl tracking-[0.28em] text-transparent uppercase [-webkit-text-stroke:2px_rgba(255,255,255,0.75)] md:text-7xl">
-                  Start Up / Scale Up
-                </span>
-
-                {/* Fill reveal */}
-                <motion.span
-                  className="absolute inset-0 block text-4xl tracking-[0.28em] text-white/95 uppercase md:text-7xl"
-                  style={{ opacity: fillOpacity }}
-                >
-                  Start Up / Scale Up
-                </motion.span>
-
-                {/* Shimmer overlay */}
-                <motion.span
-                  className="absolute inset-0 block bg-clip-text text-4xl tracking-[0.28em] text-transparent uppercase opacity-70 mix-blend-screen md:text-7xl"
-                  style={{
-                    opacity: fillOpacity,
-                    backgroundImage:
-                      "linear-gradient(110deg, rgba(255,255,255,0) 35%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0) 65%)",
-                    backgroundSize: "240% 100%",
-                    backgroundPosition: shimmerBgPos,
-                  }}
-                >
-                  Start Up / Scale Up
-                </motion.span>
+              <div className="relative w-full overflow-x-hidden">
+                <div className="font-milker flex w-max flex-col items-start gap-10 text-[clamp(2rem,10vw,5rem)] leading-[0.85] font-bold tracking-tighter uppercase">
+                  {ROWS.map((row, rowIndex) => (
+                    <BrandingRow
+                      key={rowIndex}
+                      row={row}
+                      rowIndex={rowIndex}
+                      totalRows={ROWS.length}
+                      scrollYProgress={scrollYProgress}
+                      startAt={0.7}
+                      endAt={0.92}
+                    />
+                  ))}
+                </div>
               </div>
             </motion.div>
           </div>
         </motion.div>
       </div>
     </section>
+  );
+}
+type BrandingRowProps = {
+  row: readonly string[];
+  rowIndex: number;
+  totalRows: number;
+  scrollYProgress: import("framer-motion").MotionValue<number>;
+  startAt?: number;
+  endAt?: number;
+};
+
+function BrandingRow({
+  row,
+  rowIndex,
+  totalRows,
+  scrollYProgress,
+  startAt = 0.7,
+  endAt = 0.92,
+}: BrandingRowProps) {
+  const span = endAt - startAt;
+  const step = span / Math.max(totalRows, 1);
+
+  // 每一行分到自己嘅出場區間
+  const rowStart = startAt + rowIndex * step;
+  const rowEnd = rowStart + step * 0.85;
+
+  const isFirstRow = rowIndex === 0;
+
+  const opacity = useTransform(
+    scrollYProgress,
+    isFirstRow ? [0, rowEnd] : [rowStart, rowEnd],
+    isFirstRow ? [1, 1] : [0, 1],
+  );
+
+  const y = useTransform(
+    scrollYProgress,
+    isFirstRow ? [0, rowEnd] : [rowStart, rowEnd],
+    isFirstRow ? ["0px", "0px"] : ["14px", "0px"],
+  );
+
+  const blur = useTransform(
+    scrollYProgress,
+    isFirstRow ? [0, rowEnd] : [rowStart, rowEnd],
+    isFirstRow ? ["blur(0px)", "blur(0px)"] : ["blur(12px)", "blur(0px)"],
+  );
+
+  return (
+    <motion.div
+      className="flex w-max gap-6 whitespace-nowrap"
+      style={{ opacity, y, filter: blur }}
+    >
+      {row.map((word, i) => (
+        <span key={`${rowIndex}-${i}`}>{word}</span>
+      ))}
+    </motion.div>
   );
 }

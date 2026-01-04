@@ -22,16 +22,14 @@ model User {
   createdAt     DateTime  @default(now())
   lastLogin     DateTime? @default(now())
   updatedAt     DateTime? @updatedAt
-
-  todos Todo[]
 }
 
-model Todo {
+model ContactRequest {
   id        String   @id @default(uuid())
-  title     String
-  completed Boolean  @default(false)
+  name      String
+  email     String
+  company   String?
+  message   String
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
-  userId    String
-  user      User     @relation(fields: [userId], references: [id])
 }

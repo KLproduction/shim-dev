@@ -270,12 +270,12 @@ const ContactMe = (props: Props) => {
               {`Let's Build It`}
             </motion.h2>
             <p className="max-w-xl text-lg font-medium text-[#A1A1AA] md:text-xl lg:text-2xl">
-              Share the vision. We&apos;ll shape the roadmap, scope the build,
-              and launch a one-stop digital web app that moves fast.
+              {`Share the vision. We'll shape the roadmap, scope the build,
+              and launch a one-stop digital web app that moves fast.`}
             </p>
 
-            <div className="grid gap-4 md:grid-cols-3">
-              {[{ label: "Email", value: "shimg.solution@shim.dev" }].map(
+            <div className="grid">
+              {[{ label: "Email", value: "admin@shimg-solution.com" }].map(
                 (item) => (
                   <div
                     key={item.label}

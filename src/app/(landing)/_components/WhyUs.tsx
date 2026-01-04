@@ -84,7 +84,7 @@ export default function WhyUs() {
             style={shouldReduceMotion ? undefined : { scale: headingScale }}
           >
             Why choose
-            <span className="block text-[#DFE104]">Shim solution</span>
+            <span className="block text-[#DFE104]">Shimg solution</span>
           </motion.h2>
           <motion.p
             variants={itemVariants}

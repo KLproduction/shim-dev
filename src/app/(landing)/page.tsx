@@ -7,8 +7,6 @@ import { motion } from "framer-motion";
 import ColorChange from "./_components/colorChange/colorChange";
 import Lenis from "lenis";
 
-import LightText from "./light/page";
-
 import ScrollingSectionMobile from "./_components/scrollingSection/ScrollingSectionMobile";
 import FeatureTransform from "./_components/FeatureTransform";
 import CaptionScroll from "./_components/captionScroll";
@@ -16,6 +14,8 @@ import PricingSection from "./_components/PricingSection";
 import WhyUs from "./_components/WhyUs";
 import DotTransform from "./_components/DotTransform";
 import ContactMe from "./_components/ContactMe";
+import LightText from "./light/LightText";
+import LightTextCopy from "./light/LightText copy";
 
 type Props = {};
 
@@ -41,8 +41,9 @@ const Page = (props: Props) => {
   return (
     <main>
       <section id="home">
-        <LightText />
-        {/* <DotTransform /> */}
+        {/* <LightText /> */}
+        <LightTextCopy />
+        <DotTransform />
         <div>
           <FeatureTransform />
         </div>
