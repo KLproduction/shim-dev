@@ -35,7 +35,7 @@ const Visual = ({ children, id }: Props) => {
   return (
     <div
       className={cn(
-        "fixed inset-0 flex items-center justify-center bg-white/75 backdrop-blur-2xl",
+        "fixed inset-0 z-50 flex items-center justify-center bg-white/75 backdrop-blur-2xl",
         "pointer-events-none opacity-0",
         `visual-${id}`,
       )}
@@ -47,7 +47,7 @@ const Visual = ({ children, id }: Props) => {
 
       <Button
         className={cn(
-          "back-to-site-btn absolute bottom-16 left-1/2 z-10 mx-auto w-fit -translate-x-1/2 cursor-pointer bg-zinc-800 text-white shadow-2xl",
+          "back-to-site-btn absolute bottom-10 left-1/2 z-10 mx-auto w-fit -translate-x-1/2 cursor-pointer bg-zinc-800 text-white shadow-2xl",
         )}
         onClick={() => {
           setFullScreenFeature(null);
