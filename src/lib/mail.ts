@@ -1,6 +1,5 @@
 import { Resend } from "resend";
-import { db } from "./db";
-import type { ContactFormValues } from "../type";
+import type { ContactFormValues } from "../../type";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -15,7 +14,7 @@ export const sendVerificationEmail = async (
   _userId?: string,
 ) => {
   await resend.emails.send({
-    from: "mail@shimgsolution.com",
+    from: "admin@shimg-solution.com",
     to: email,
     subject: "We received your inquiry",
     html: `<head>
@@ -61,11 +60,9 @@ export const sendVerificationEmail = async (
   });
 };
 
-export const sendContactLeadEmail = async (
-  payload: ContactFormValues,
-) => {
+export const sendContactLeadEmail = async (payload: ContactFormValues) => {
   await resend.emails.send({
-    from: "mail@shimgsolution.com",
+    from: "mail@shimg-solution.com",
     to: "kent.law.production01@gmail.com",
     subject: "New contact request",
     html: `<head>

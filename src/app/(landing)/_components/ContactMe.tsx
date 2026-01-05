@@ -6,6 +6,7 @@ import { useCallback, useMemo, useState } from "react";
 
 import { contactFormSchema, type ContactFormValues } from "../../../../type";
 import { Button } from "@/components/ui/button";
+import { useCreateContactRequest } from "@/hook/contentForm";
 
 type Props = {};
 
@@ -21,7 +22,7 @@ const initialValues: ContactFormValues = {
 const useContactForm = () => {
   const [values, setValues] = useState<ContactFormValues>(initialValues);
   const [errors, setErrors] = useState<FormErrors>({});
-  const [status, setStatus] = useState<"idle" | "success">("idle");
+  const { status, error, submit } = useCreateContactRequest();
 
   const validate = useCallback((nextValues: ContactFormValues) => {
     const result = contactFormSchema.safeParse(nextValues);
@@ -59,23 +60,29 @@ const useContactForm = () => {
   );
 
   const handleSubmit = useCallback(
-    (event: React.FormEvent<HTMLFormElement>) => {
+    async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       const result = validate(values);
       if (!result.valid) {
         setErrors(result.errors);
-        setStatus("idle");
         return;
       }
 
       setErrors({});
-      setStatus("success");
-      // TODO: Connect to a server action for actual submission.
+      const actionResult = await submit(values);
+      if (!actionResult.ok) {
+        if (Object.keys(actionResult.fieldErrors).length > 0) {
+          setErrors(actionResult.fieldErrors);
+        }
+        return;
+      }
+
+      setValues(initialValues);
     },
-    [validate, values],
+    [submit, validate, values],
   );
 
-  return { values, errors, status, handleChange, handleSubmit };
+  return { values, errors, status, error, handleChange, handleSubmit };
 };
 
 type FieldProps = {
@@ -231,7 +238,7 @@ const MarqueeRow = ({
 
 const ContactMe = (props: Props) => {
   const shouldReduceMotion = useReducedMotion();
-  const { values, errors, status, handleChange, handleSubmit } =
+  const { values, errors, status, error, handleChange, handleSubmit } =
     useContactForm();
 
   const headingMotion = useMemo(
@@ -355,7 +362,9 @@ const ContactMe = (props: Props) => {
               >
                 {status === "success"
                   ? "Request received. We will reply within 48 hours."
-                  : "Typical response time: 48 hours."}
+                  : status === "error"
+                    ? error ?? "Something went wrong. Please try again."
+                    : "Typical response time: 48 hours."}
               </p>
             </div>
           </form>

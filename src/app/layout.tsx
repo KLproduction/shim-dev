@@ -4,6 +4,7 @@ import "./globals.css";
 import TransitionProvider from "@/components/global/TransitionProvider";
 import { Navbar } from "@/components/Navbar";
 import { SessionProvider } from "@/components/global/SessionProvider";
+import { ReactQueryProvider } from "../../react-query/provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,12 +28,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <Navbar />
-        {children}
-      </body>
+      <ReactQueryProvider>
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+          <Navbar />
+          {children}
+        </body>
+      </ReactQueryProvider>
     </html>
   );
 }
