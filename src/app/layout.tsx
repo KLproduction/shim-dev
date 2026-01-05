@@ -5,6 +5,7 @@ import TransitionProvider from "@/components/global/TransitionProvider";
 import { Navbar } from "@/components/Navbar";
 import { SessionProvider } from "@/components/global/SessionProvider";
 import { ReactQueryProvider } from "../../react-query/provider";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,6 +35,7 @@ export default function RootLayout({
         >
           <Navbar />
           {children}
+          <Toaster position="bottom-right" duration={3000} closeButton />
         </body>
       </ReactQueryProvider>
     </html>

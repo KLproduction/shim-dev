@@ -18,7 +18,8 @@ import {
 } from "@/components/ui/sheet";
 import { Textarea } from "@/components/ui/textarea";
 import { useContactFormStore } from "@/hook/store";
-import type { ContactFormValues } from "../../../../../type";
+import { contactFormSchema, type ContactFormValues } from "../../../../../type";
+import { useCreateContactRequest } from "@/hook/contentForm";
 import { useMediaQuery } from "react-responsive";
 import { useEffect, useMemo, useState } from "react";
 
@@ -47,12 +48,15 @@ const PRESET_MESSAGES: Record<"starter" | "growth" | "pro", string> = {
     "Hi! I am interested in the Pro Partner Build. I need a scalable web app with login and admin dashboard.\n\nCore features:\n- \nTimeline:\n- \nBudget:\n- ",
 };
 
+type FormErrors = Partial<Record<keyof ContactFormValues, string>>;
+
 const useContactSheetForm = () => {
   const {
     isStarterPreset,
     isGrowthPreset,
     isProPreset,
   } = useContactFormStore();
+  const { status, error, submit } = useCreateContactRequest();
   const presetKey = useMemo(() => {
     if (isStarterPreset) return "starter";
     if (isGrowthPreset) return "growth";
@@ -66,6 +70,7 @@ const useContactSheetForm = () => {
     company: "",
     message: "",
   });
+  const [errors, setErrors] = useState<FormErrors>({});
 
   useEffect(() => {
     if (!presetKey) return;
@@ -80,89 +85,168 @@ const useContactSheetForm = () => {
   ) => {
     const { name, value } = event.currentTarget;
     setValues((prev) => ({ ...prev, [name]: value }));
+    setErrors((prev) => {
+      const key = name as keyof ContactFormValues;
+      if (!prev[key]) {
+        return prev;
+      }
+      const { [key]: _ignored, ...rest } = prev;
+      return rest;
+    });
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const result = contactFormSchema.safeParse(values);
+    if (!result.success) {
+      const fieldErrors = result.error.flatten().fieldErrors;
+      const nextErrors: FormErrors = {};
+
+      (Object.keys(fieldErrors) as (keyof ContactFormValues)[]).forEach(
+        (key) => {
+          const message = fieldErrors[key]?.[0];
+          if (message) {
+            nextErrors[key] = message;
+          }
+        }
+      );
+
+      setErrors(nextErrors);
+      return;
+    }
+
+    setErrors({});
+    const actionResult = await submit(values);
+    if (!actionResult.ok) {
+      if (Object.keys(actionResult.fieldErrors).length > 0) {
+        setErrors(actionResult.fieldErrors);
+      }
+      return;
+    }
+
+    setValues({
+      name: "",
+      email: "",
+      company: "",
+      message: "",
+    });
   };
 
-  return { values, handleChange, handleSubmit };
+  return { values, errors, status, error, handleChange, handleSubmit };
 };
 
 const ContactForm = () => {
-  const { values, handleChange, handleSubmit } = useContactSheetForm();
+  const { values, errors, status, error, handleChange, handleSubmit } =
+    useContactSheetForm();
 
   return (
     <form className="space-y-4" onSubmit={handleSubmit}>
-    <div className="grid gap-4">
-      <div className="space-y-2">
+      <div className="grid gap-4">
+        <div className="space-y-2">
         <label htmlFor="contact-name" className="text-sm font-medium">
           Name
         </label>
-        <Input
-          id="contact-name"
-          name="name"
-          placeholder="Your name"
-          autoComplete="name"
-          required
-          value={values.name}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="space-y-2">
-        <label htmlFor="contact-email" className="text-sm font-medium">
-          Email
-        </label>
+          <Input
+            id="contact-name"
+            name="name"
+            placeholder="Your name"
+            autoComplete="name"
+            required
+            value={values.name}
+            onChange={handleChange}
+            aria-invalid={Boolean(errors.name)}
+            aria-describedby={errors.name ? "contact-name-error" : undefined}
+          />
+          {errors.name ? (
+            <p id="contact-name-error" className="text-sm text-destructive">
+              {errors.name}
+            </p>
+          ) : null}
+        </div>
+        <div className="space-y-2">
+          <label htmlFor="contact-email" className="text-sm font-medium">
+            Email
+          </label>
         <Input
           id="contact-email"
           name="email"
           type="email"
-          placeholder="you@company.com"
-          autoComplete="email"
-          required
-          value={values.email}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="space-y-2">
-        <label htmlFor="contact-company" className="text-sm font-medium">
-          Company
-        </label>
+            placeholder="you@company.com"
+            autoComplete="email"
+            required
+            value={values.email}
+            onChange={handleChange}
+            aria-invalid={Boolean(errors.email)}
+            aria-describedby={errors.email ? "contact-email-error" : undefined}
+          />
+          {errors.email ? (
+            <p id="contact-email-error" className="text-sm text-destructive">
+              {errors.email}
+            </p>
+          ) : null}
+        </div>
+        <div className="space-y-2">
+          <label htmlFor="contact-company" className="text-sm font-medium">
+            Company
+          </label>
         <Input
           id="contact-company"
-          name="company"
-          placeholder="Company name (optional)"
-          autoComplete="organization"
-          value={values.company ?? ""}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="space-y-2">
-        <label htmlFor="contact-message" className="text-sm font-medium">
-          Project notes
-        </label>
+            name="company"
+            placeholder="Company name (optional)"
+            autoComplete="organization"
+            value={values.company ?? ""}
+            onChange={handleChange}
+            aria-invalid={Boolean(errors.company)}
+            aria-describedby={
+              errors.company ? "contact-company-error" : undefined
+            }
+          />
+          {errors.company ? (
+            <p id="contact-company-error" className="text-sm text-destructive">
+              {errors.company}
+            </p>
+          ) : null}
+        </div>
+        <div className="space-y-2">
+          <label htmlFor="contact-message" className="text-sm font-medium">
+            Project notes
+          </label>
         <Textarea
           id="contact-message"
           name="message"
-          placeholder="Tell us what you want to build"
-          rows={4}
-          required
-          value={values.message}
-          onChange={handleChange}
-        />
+            placeholder="Tell us what you want to build"
+            rows={4}
+            required
+            value={values.message}
+            onChange={handleChange}
+            aria-invalid={Boolean(errors.message)}
+            aria-describedby={
+              errors.message ? "contact-message-error" : undefined
+            }
+          />
+          {errors.message ? (
+            <p id="contact-message-error" className="text-sm text-destructive">
+              {errors.message}
+            </p>
+          ) : null}
+        </div>
       </div>
-    </div>
-    <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:items-center sm:justify-between">
-      <Button
-        type="submit"
-        className="bg-accent text-background hover:text-foreground w-full rounded-none sm:w-auto"
-      >
-        Send request
-      </Button>
-      <p className="text-muted-foreground text-sm">
-        Typical response time: 48 hours.
-      </p>
-    </div>
+      <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:items-center sm:justify-between">
+        <Button
+          type="submit"
+          className="bg-accent text-background hover:text-foreground w-full rounded-none sm:w-auto"
+          disabled={status === "submitting"}
+        >
+          {status === "submitting" ? "Sending..." : "Send request"}
+        </Button>
+        <p className="text-muted-foreground text-sm" aria-live="polite">
+          {status === "success"
+            ? "Request received. We will reply within 48 hours."
+            : status === "error"
+              ? (error ?? "Something went wrong. Please try again.")
+              : "Typical response time: 48 hours."}
+        </p>
+      </div>
     </form>
   );
 };
