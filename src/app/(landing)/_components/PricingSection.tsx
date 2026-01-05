@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { useContactFormStore } from "@/hook/store";
 
 type PricingTier = {
   name: string;
@@ -16,6 +17,7 @@ type PricingTier = {
     label: string;
     href: string;
   };
+  preset: "starter" | "growth" | "pro";
   finePrint?: string;
 };
 
@@ -27,6 +29,7 @@ const TIERS: PricingTier[] = [
     originalPrice: "£500",
     period: "one-time",
     badge: "Founding Offer",
+    preset: "starter",
     features: [
       "1 custom-designed landing page",
       "Responsive (mobile + desktop)",
@@ -46,6 +49,7 @@ const TIERS: PricingTier[] = [
     period: "one-time",
     highlighted: true,
     badge: "Most Popular",
+    preset: "growth",
     features: [
       "5-8 pages (Home, About, Services, FAQ, Contact)",
       "Custom UI/UX design (no off-the-shelf templates)",
@@ -65,6 +69,7 @@ const TIERS: PricingTier[] = [
     originalPrice: "£4,000+",
     period: "from",
     badge: "Limited slots",
+    preset: "pro",
     features: [
       "Auth (login + registration; OAuth optional)",
       "Admin dashboard (manage content/data)",
@@ -152,6 +157,7 @@ export default function PricingSection() {
   };
 
   const shouldReduceMotion = useReducedMotion();
+  const { openContactForm, setContactFormPreset } = useContactFormStore();
 
   return (
     <section id="pricing" className="relative w-full bg-[#09090B] p-12">
@@ -298,6 +304,11 @@ export default function PricingSection() {
                   <a
                     href={tier.cta.href}
                     className={`${buttonOutline} ${buttonBase}`}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      setContactFormPreset(tier.preset);
+                      openContactForm();
+                    }}
                   >
                     {tier.cta.label}
                   </a>

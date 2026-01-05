@@ -34,6 +34,10 @@ type ContactFormStore = {
   closeContactForm: () => void;
   toggleContactForm: () => void;
   setContactFormOpen: (isOpen: boolean) => void;
+  isStarterPreset: boolean;
+  isGrowthPreset: boolean;
+  isProPreset: boolean;
+  setContactFormPreset: (preset: "starter" | "growth" | "pro" | null) => void;
 };
 
 export const useContactFormStore = create<ContactFormStore>((set) => ({
@@ -44,4 +48,13 @@ export const useContactFormStore = create<ContactFormStore>((set) => ({
     set((state) => ({ isContactFormOpen: !state.isContactFormOpen })),
   setContactFormOpen: (isOpen: boolean) =>
     set(() => ({ isContactFormOpen: isOpen })),
+  isStarterPreset: false,
+  isGrowthPreset: false,
+  isProPreset: false,
+  setContactFormPreset: (preset) =>
+    set(() => ({
+      isStarterPreset: preset === "starter",
+      isGrowthPreset: preset === "growth",
+      isProPreset: preset === "pro",
+    })),
 }));

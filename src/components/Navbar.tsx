@@ -1,6 +1,6 @@
 "use client";
 
-import { AuthButtons } from "@/components/AuthButtons";
+import { useContactFormStore } from "@/hook/store";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
@@ -10,6 +10,7 @@ export function Navbar() {
   const lastScrollY = useRef(0);
   const shouldReduceMotion = useReducedMotion();
   const isNavigatingRef = useRef(false);
+  const { openContactForm, setContactFormPreset } = useContactFormStore();
 
   const navLinks = [
     { href: "#home", label: "Home" },
@@ -73,7 +74,7 @@ export function Navbar() {
         <div className="flex items-center gap-10">
           <Link
             href="/"
-            className="text-xl font-bold tracking-tighter text-[#DFE104] uppercase transition-colors md:text-2xl"
+            className="font-milker text-xl text-[#DFE104] uppercase transition-colors md:text-2xl"
           >
             Shimg-Solution
           </Link>
@@ -90,6 +91,16 @@ export function Navbar() {
             ))}
           </div>
         </div>
+        <button
+          type="button"
+          onClick={() => {
+            setContactFormPreset(null);
+            openContactForm();
+          }}
+          className="rounded-none border-2 border-[#DFE104] bg-[#DFE104] px-4 py-2 text-sm font-bold tracking-tight text-[#000000] uppercase transition-all duration-200 hover:scale-105 active:scale-95"
+        >
+          Contact us
+        </button>
       </div>
     </motion.nav>
   );

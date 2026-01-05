@@ -7,7 +7,6 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerDescription,
-  DrawerTrigger,
 } from "@/components/ui/drawer";
 import { Input } from "@/components/ui/input";
 import {
@@ -16,11 +15,12 @@ import {
   SheetDescription,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from "@/components/ui/sheet";
 import { Textarea } from "@/components/ui/textarea";
 import { useContactFormStore } from "@/hook/store";
+import type { ContactFormValues } from "../../../../../type";
 import { useMediaQuery } from "react-responsive";
+import { useEffect, useMemo, useState } from "react";
 
 const ContactHeader = () => (
   <>
@@ -38,8 +38,62 @@ const ContactHeader = () => (
   </>
 );
 
-const ContactForm = () => (
-  <form className="space-y-4">
+const PRESET_MESSAGES: Record<"starter" | "growth" | "pro", string> = {
+  starter:
+    "Hi! I am interested in the Starter Launch package. I need a high-converting landing page and want to ship fast.\n\nGoals:\n- \nTimeline:\n- \nBudget:\n- ",
+  growth:
+    "Hi! I am interested in the Growth Site package. I need a business website with CMS so I can update content.\n\nPages needed:\n- \nTimeline:\n- \nBudget:\n- ",
+  pro:
+    "Hi! I am interested in the Pro Partner Build. I need a scalable web app with login and admin dashboard.\n\nCore features:\n- \nTimeline:\n- \nBudget:\n- ",
+};
+
+const useContactSheetForm = () => {
+  const {
+    isStarterPreset,
+    isGrowthPreset,
+    isProPreset,
+  } = useContactFormStore();
+  const presetKey = useMemo(() => {
+    if (isStarterPreset) return "starter";
+    if (isGrowthPreset) return "growth";
+    if (isProPreset) return "pro";
+    return null;
+  }, [isGrowthPreset, isProPreset, isStarterPreset]);
+
+  const [values, setValues] = useState<ContactFormValues>({
+    name: "",
+    email: "",
+    company: "",
+    message: "",
+  });
+
+  useEffect(() => {
+    if (!presetKey) return;
+    setValues((prev) => ({
+      ...prev,
+      message: PRESET_MESSAGES[presetKey],
+    }));
+  }, [presetKey]);
+
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = event.currentTarget;
+    setValues((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+  };
+
+  return { values, handleChange, handleSubmit };
+};
+
+const ContactForm = () => {
+  const { values, handleChange, handleSubmit } = useContactSheetForm();
+
+  return (
+    <form className="space-y-4" onSubmit={handleSubmit}>
     <div className="grid gap-4">
       <div className="space-y-2">
         <label htmlFor="contact-name" className="text-sm font-medium">
@@ -51,6 +105,8 @@ const ContactForm = () => (
           placeholder="Your name"
           autoComplete="name"
           required
+          value={values.name}
+          onChange={handleChange}
         />
       </div>
       <div className="space-y-2">
@@ -64,6 +120,8 @@ const ContactForm = () => (
           placeholder="you@company.com"
           autoComplete="email"
           required
+          value={values.email}
+          onChange={handleChange}
         />
       </div>
       <div className="space-y-2">
@@ -75,6 +133,8 @@ const ContactForm = () => (
           name="company"
           placeholder="Company name (optional)"
           autoComplete="organization"
+          value={values.company ?? ""}
+          onChange={handleChange}
         />
       </div>
       <div className="space-y-2">
@@ -87,19 +147,25 @@ const ContactForm = () => (
           placeholder="Tell us what you want to build"
           rows={4}
           required
+          value={values.message}
+          onChange={handleChange}
         />
       </div>
     </div>
     <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:items-center sm:justify-between">
-      <Button type="submit" className="w-full sm:w-auto">
+      <Button
+        type="submit"
+        className="bg-accent text-background hover:text-foreground w-full rounded-none sm:w-auto"
+      >
         Send request
       </Button>
       <p className="text-muted-foreground text-sm">
         Typical response time: 48 hours.
       </p>
     </div>
-  </form>
-);
+    </form>
+  );
+};
 
 const ContactSheet = () => {
   const isMobile = useMediaQuery({ maxWidth: 639 });
@@ -113,12 +179,10 @@ const ContactSheet = () => {
           open={isContactFormOpen}
           onOpenChange={setContactFormOpen}
         >
-          <DrawerTrigger asChild>
-            <Button variant="outline" className="w-full">
-              Contact us
-            </Button>
-          </DrawerTrigger>
-          <DrawerContent className="max-h-[85vh] gap-6 overflow-y-auto pb-6">
+          <DrawerContent
+            className="max-h-[85vh] gap-6 overflow-y-auto pb-6"
+            onCloseAutoFocus={(event) => event.preventDefault()}
+          >
             <DrawerHeader className="space-y-4">
               <DrawerTitle className="text-2xl font-semibold">
                 Start a project
@@ -134,10 +198,11 @@ const ContactSheet = () => {
         </Drawer>
       ) : (
         <Sheet open={isContactFormOpen} onOpenChange={setContactFormOpen}>
-          <SheetTrigger asChild>
-            <Button variant="outline">Contact us</Button>
-          </SheetTrigger>
-          <SheetContent side="right" className="w-full max-w-xl gap-6">
+          <SheetContent
+            side="right"
+            className="w-full max-w-xl gap-6"
+            onCloseAutoFocus={(event) => event.preventDefault()}
+          >
             <SheetHeader className="space-y-4">
               <ContactHeader />
             </SheetHeader>
