@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { motion, useReducedMotion } from "framer-motion";
 import { useCallback, useMemo, useState } from "react";
 
-import { contactFormSchema, type ContactFormValues } from "../../../../type";
+import { contactFormSchema, type ContactFormValues } from "../../../../../type";
 import { Button } from "@/components/ui/button";
 import { useCreateContactRequest } from "@/hook/contentForm";
 
@@ -363,7 +363,7 @@ const ContactMe = (props: Props) => {
                 {status === "success"
                   ? "Request received. We will reply within 48 hours."
                   : status === "error"
-                    ? error ?? "Something went wrong. Please try again."
+                    ? (error ?? "Something went wrong. Please try again.")
                     : "Typical response time: 48 hours."}
               </p>
             </div>

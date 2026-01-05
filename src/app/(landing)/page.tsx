@@ -13,7 +13,8 @@ import CaptionScroll from "./_components/captionScroll";
 import PricingSection from "./_components/PricingSection";
 import WhyUs from "./_components/WhyUs";
 import DotTransform from "./_components/DotTransform";
-import ContactMe from "./_components/ContactMe";
+import ContactMe from "./_components/Contact/ContactMe";
+import ContactSheet from "./_components/Contact/contactSheet";
 import LightText from "./light/LightText";
 import LightTextCopy from "./light/LightText copy";
 
@@ -40,6 +41,7 @@ const Page = (props: Props) => {
 
   return (
     <main>
+      <ContactSheet />
       <section id="home">
         {/* <LightText /> */}
         <LightTextCopy />

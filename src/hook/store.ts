@@ -27,3 +27,21 @@ export const useFeatureStore = create<FeatureStore>((set) => ({
   setLastFullScreenFeatures: (feature: string | null) =>
     set(() => ({ lastFullScreenFeatures: feature })),
 }));
+
+type ContactFormStore = {
+  isContactFormOpen: boolean;
+  openContactForm: () => void;
+  closeContactForm: () => void;
+  toggleContactForm: () => void;
+  setContactFormOpen: (isOpen: boolean) => void;
+};
+
+export const useContactFormStore = create<ContactFormStore>((set) => ({
+  isContactFormOpen: false,
+  openContactForm: () => set(() => ({ isContactFormOpen: true })),
+  closeContactForm: () => set(() => ({ isContactFormOpen: false })),
+  toggleContactForm: () =>
+    set((state) => ({ isContactFormOpen: !state.isContactFormOpen })),
+  setContactFormOpen: (isOpen: boolean) =>
+    set(() => ({ isContactFormOpen: isOpen })),
+}));
