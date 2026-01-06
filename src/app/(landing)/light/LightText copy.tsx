@@ -6,13 +6,15 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { useContactFormStore } from "@/hook/store";
 import "./light.css";
 
 export default function LightTextCopy() {
   const [angle, setAngle] = useState(0.5);
   const reduceMotion = useReducedMotion();
+  const { openContactForm, setContactFormPreset } = useContactFormStore();
 
   const handleUpdate = (latest: Record<string, string>) => {
     if (latest["--rotate"]) {
@@ -22,7 +24,7 @@ export default function LightTextCopy() {
   };
 
   const isCoderLit = angle <= 0.35;
-  const isDesignerLit = angle >= 0.1;
+  const isDesignerLit = angle >= 0.3;
 
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress } = useScroll({
@@ -33,6 +35,22 @@ export default function LightTextCopy() {
     scrollYProgress,
     [0.5, 1],
     reduceMotion ? [0, 0] : [0, -250],
+  );
+
+  const handleScrollTo = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement>, targetId: string) => {
+      event.preventDefault();
+      const target = document.querySelector(targetId);
+      if (!target) {
+        return;
+      }
+      target.scrollIntoView({
+        behavior: reduceMotion ? "auto" : "smooth",
+        block: "start",
+      });
+      window.history.replaceState(null, "", targetId);
+    },
+    [reduceMotion],
   );
 
   return (
@@ -90,35 +108,52 @@ export default function LightTextCopy() {
               transition: { duration: 0.8 },
             },
           }}
-          className="relative z-20 flex w-full flex-col items-end justify-start gap-3"
+          className="relative z-20 flex w-full flex-col items-start justify-start gap-3"
         >
-          <div className="border-accent hidden items-center gap-3 border-2 bg-white/5 p-3 md:flex">
-            <div className="bg-accent h-5 w-5 rounded-full" />
-            <span className="text-xs font-bold tracking-widest text-[#A1A1AA] uppercase lg:text-2xl">
+          <div className="border-accent hidden items-center gap-3 border-2 bg-white/5 p-1 md:flex">
+            <div className="bg-accent h-3 w-3 rounded-full" />
+            <span className="text-xs font-bold tracking-widest text-[#A1A1AA] uppercase lg:text-xs">
               AVAILABLE FOR NEW PROJECTS
             </span>
           </div>
         </motion.div>
 
         {/* Main headline */}
-        <motion.h1
-          variants={{
-            hidden: { opacity: 0, filter: "blur(16px)", y: 40 },
-            show: {
-              opacity: 1,
-              filter: "blur(0px)",
-              transition: { duration: 1.1 },
-            },
-          }}
-          style={{ y: captionY }}
-          className="font-milker flex max-w-4xl flex-col items-start text-[clamp(2rem,12vw,10rem)] leading-[0.8] font-bold tracking-tighter uppercase"
-        >
-          <span>BUILDING</span>
-          <span>DIGITAL</span>
-          <span>EXPERIENCES</span>
-          <span>THAT SHINE</span>
-          <span className="text-accent">SHIMG-SOLUTION</span>
-        </motion.h1>
+        <div className="flex flex-col items-center justify-between gap-6 lg:flex-row">
+          <motion.h1
+            variants={{
+              hidden: { opacity: 0, filter: "blur(16px)", y: 40 },
+              show: {
+                opacity: 1,
+                filter: "blur(0px)",
+                transition: { duration: 1.1 },
+              },
+            }}
+            style={{ y: captionY }}
+            className="font-milker flex max-w-4xl flex-col items-start text-[clamp(2rem,12vw,8rem)] leading-[0.8] font-bold tracking-tighter uppercase"
+          >
+            <span>BUILDING</span>
+            <span>DIGITAL</span>
+            <span>EXPERIENCES</span>
+            <span>THAT SHINE</span>
+          </motion.h1>
+          <motion.span
+            initial={{ opacity: 0 }}
+            animate={{ opacity: isCoderLit ? 0.2 : 0 }}
+            transition={{ duration: 0.3 }}
+            className="font-milker text-accent hidden max-w-4xl flex-col items-start text-[clamp(2rem,12vw,4rem)] leading-[0.8] font-bold tracking-tighter uppercase lg:flex"
+          >
+            SHIMG SOLUTION
+          </motion.span>
+          <motion.span
+            initial={{ opacity: 0 }}
+            animate={{ opacity: isDesignerLit ? 0.2 : 0 }}
+            transition={{ duration: 0.3 }}
+            className="font-milker text-accent flex max-w-4xl flex-col items-start text-[clamp(2rem,12vw,4rem)] leading-[0.8] font-bold tracking-tighter uppercase lg:hidden"
+          >
+            SHIMG SOLUTION
+          </motion.span>
+        </div>
         {/* Subheading and description */}
         <motion.div
           variants={{
@@ -149,7 +184,7 @@ export default function LightTextCopy() {
         >
           <Button
             type="button"
-            onClick={() => console.log("click")}
+            onClick={(event) => handleScrollTo(event, "#features")}
             className="h-auto gap-2 rounded-none border-2 border-[#DFE104] bg-[#DFE104] px-8 py-3 text-xs font-bold tracking-widest text-black uppercase transition-all duration-200 hover:scale-105 active:scale-95 sm:px-10 sm:py-4 sm:text-sm"
           >
             VIEW SELECTED WORKS
@@ -158,6 +193,10 @@ export default function LightTextCopy() {
           <Button
             type="button"
             variant="outline"
+            onClick={() => {
+              setContactFormPreset(null);
+              openContactForm();
+            }}
             className="h-auto rounded-none border-2 border-[#3F3F46] bg-transparent px-8 py-3 text-xs font-bold tracking-widest text-[#FAFAFA] uppercase transition-all duration-200 hover:scale-105 hover:bg-[#FAFAFA] hover:text-black active:scale-95 sm:px-10 sm:py-4 sm:text-sm"
           >
             CONTACT ME

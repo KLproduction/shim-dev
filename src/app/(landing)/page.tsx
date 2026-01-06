@@ -55,21 +55,24 @@ const Page = (props: Props) => {
         className="bg-background h-screen w-full"
         id="work"
       />
-      <div className="h-screen w-full">
-        <ColorChange />
-      </div>
-      <section id="features" className="bg-foreground relative z-10">
+      <section id="features" className="bg-background relative z-10">
         <div className="mx-auto max-w-6xl px-4">
           <ScrollingSection />
           <ScrollingSectionMobile />
         </div>
       </section>
       <div className="h-screen w-full">
-        <ColorChange fromBackground="bg-zinc-50" toBackground="bg-background" />
+        <ColorChange toBackground="bg-[#F6F5F1]" />
       </div>
       <section id="pricing">
         <PricingSection />
       </section>
+      <div className="h-screen w-full">
+        <ColorChange
+          fromBackground="bg-[#F6F5F1]"
+          toBackground="bg-background"
+        />
+      </div>
       <section id="why-us">
         <WhyUs />
       </section>

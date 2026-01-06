@@ -64,25 +64,31 @@ export default function FeatureTransform(props: Props) {
           clipPath: firstClip,
         }}
       >
-        <div className="flex w-full flex-col items-center justify-end gap-3">
-          <h1 className="font-milker text-base sm:text-lg md:text-7xl">
-            Admin / CMS
-          </h1>
-          <p className="text-foreground w-2/3 text-2xl">
-            Built-in admin tools so you can manage your website without touching
-            code. Add products, update prices, upload images, and organise
-            categories anytime.
-          </p>
+        <div className="flex w-full justify-center">
+          <div className="flex w-full flex-col items-center justify-center gap-3">
+            <h1 className="font-milker text-base sm:text-lg md:text-7xl">
+              E-commerce
+            </h1>
+            <p className="text-foreground w-2/3 text-2xl">
+              From product pages to checkout and order management. Secure online
+              payments, cart experience, and an admin dashboard to handle orders
+              and fulfilment.
+            </p>
+          </div>
         </div>
         <div className="relative">
-          <div className="bg-accent absolute top-3 right-3 h-full w-full" />
+          <div className="hidden lg:block">
+            <div className="bg-accent pointer-events-none absolute -bottom-3 -left-3 z-0 h-1/2 w-1/2" />
+            <div className="bg-accent pointer-events-none absolute -top-3 -right-3 z-0 h-1/3 w-1/3" />
+          </div>
+
           <img
-            src="/ecldisplay.png"
-            alt="ECL display"
-            className="relative max-h-[60vh] w-auto max-w-[90vw] object-cover"
+            src="/eatdisplay.png"
+            alt="Eat display"
+            className="relative max-h-[60vh] w-auto max-w-[90vw] object-contain"
           />
           {/* Light shadow */}
-          <div className="pointer-events-none absolute top-0 left-1/2 h-56 w-56 -translate-x-1/2 rounded-full mix-blend-screen blur-3xl [background:radial-gradient(circle_at_center,rgba(255,255,255,0.55)_0%,rgba(255,255,255,0.25)_28%,rgba(255,255,255,0.0)_65%)]" />
+          <div className="pointer-events-none absolute top-0 left-1/2 z-20 h-56 w-56 -translate-x-1/2 rounded-full mix-blend-screen blur-3xl [background:radial-gradient(circle_at_center,rgba(255,255,255,0.55)_0%,rgba(255,255,255,0.25)_28%,rgba(255,255,255,0.0)_65%)]" />
         </div>
       </motion.div>
 
@@ -95,10 +101,11 @@ export default function FeatureTransform(props: Props) {
           filter: secBlur,
         }}
       >
-        <div className="flex w-full justify-center sm:order-2">
-          <div className="flex w-full flex-col items-center justify-end gap-3">
+        <div className="flex w-full items-center justify-center sm:order-2">
+          <div className="flex w-full flex-col items-center justify-center gap-3">
             <h1 className="font-milker text-base sm:text-lg md:text-7xl">
-              Booking Platforms
+              Booking <br />
+              Platform
             </h1>
             <p className="text-foreground w-2/3 text-2xl">
               A complete booking flow for service businesses. Set availability,
@@ -108,7 +115,10 @@ export default function FeatureTransform(props: Props) {
           </div>
         </div>
         <div className="relative lg:order-1">
-          <div className="bg-accent pointer-events-none absolute top-3 left-3 z-0 h-full w-full" />
+          <div className="hidden lg:block">
+            <div className="bg-accent pointer-events-none absolute -right-3 -bottom-3 z-0 h-1/2 w-1/2" />
+            <div className="bg-accent pointer-events-none absolute -top-3 -left-3 z-0 h-1/3 w-1/3" />
+          </div>
 
           <img
             src="/salondisplay.png"
@@ -130,28 +140,28 @@ export default function FeatureTransform(props: Props) {
           filter: thirdBlur,
         }}
       >
-        <div className="flex w-full justify-center">
-          <div className="flex w-full flex-col items-center justify-center gap-3">
-            <h1 className="font-milker text-base sm:text-lg md:text-7xl">
-              E-commerce
-            </h1>
-            <p className="text-foreground w-2/3 text-2xl">
-              From product pages to checkout and order management. Secure online
-              payments, cart experience, and an admin dashboard to handle orders
-              and fulfilment.
-            </p>
-          </div>
+        <div className="flex w-full flex-col items-center justify-end gap-3">
+          <h1 className="font-milker text-base sm:text-lg md:text-7xl">
+            Admin / CMS
+          </h1>
+          <p className="text-foreground w-2/3 text-2xl">
+            Built-in admin tools so you can manage your website without touching
+            code. Add products, update prices, upload images, and organise
+            categories anytime.
+          </p>
         </div>
         <div className="relative">
-          <div className="bg-accent pointer-events-none absolute top-3 right-3 z-0 h-full w-full" />
-
+          <div className="hidden lg:block">
+            <div className="bg-accent pointer-events-none absolute -bottom-3 -left-3 z-0 h-1/2 w-1/2" />
+            <div className="bg-accent pointer-events-none absolute -top-3 -right-3 z-0 h-1/3 w-1/3" />
+          </div>
           <img
-            src="/eatdisplay.png"
-            alt="Eat display"
-            className="relative max-h-[60vh] w-auto max-w-[90vw] object-contain"
+            src="/ecldisplay.png"
+            alt="ECL display"
+            className="relative max-h-[60vh] w-auto max-w-[90vw] object-cover"
           />
           {/* Light shadow */}
-          <div className="pointer-events-none absolute top-0 left-1/2 z-20 h-56 w-56 -translate-x-1/2 rounded-full mix-blend-screen blur-3xl [background:radial-gradient(circle_at_center,rgba(255,255,255,0.55)_0%,rgba(255,255,255,0.25)_28%,rgba(255,255,255,0.0)_65%)]" />
+          <div className="pointer-events-none absolute top-0 left-1/2 h-56 w-56 -translate-x-1/2 rounded-full mix-blend-screen blur-3xl [background:radial-gradient(circle_at_center,rgba(255,255,255,0.55)_0%,rgba(255,255,255,0.25)_28%,rgba(255,255,255,0.0)_65%)]" />
         </div>
       </motion.div>
     </div>
