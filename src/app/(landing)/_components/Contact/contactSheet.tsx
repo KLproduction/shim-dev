@@ -44,18 +44,14 @@ const PRESET_MESSAGES: Record<"starter" | "growth" | "pro", string> = {
     "Hi! I am interested in the Starter Launch package. I need a high-converting landing page and want to ship fast.\n\nGoals:\n- \nTimeline:\n- \nBudget:\n- ",
   growth:
     "Hi! I am interested in the Growth Site package. I need a business website with CMS so I can update content.\n\nPages needed:\n- \nTimeline:\n- \nBudget:\n- ",
-  pro:
-    "Hi! I am interested in the Pro Partner Build. I need a scalable web app with login and admin dashboard.\n\nCore features:\n- \nTimeline:\n- \nBudget:\n- ",
+  pro: "Hi! I am interested in the Pro Partner Build. I need a scalable web app with login and admin dashboard.\n\nCore features:\n- \nTimeline:\n- \nBudget:\n- ",
 };
 
 type FormErrors = Partial<Record<keyof ContactFormValues, string>>;
 
 const useContactSheetForm = () => {
-  const {
-    isStarterPreset,
-    isGrowthPreset,
-    isProPreset,
-  } = useContactFormStore();
+  const { isStarterPreset, isGrowthPreset, isProPreset } =
+    useContactFormStore();
   const { status, error, submit } = useCreateContactRequest();
   const presetKey = useMemo(() => {
     if (isStarterPreset) return "starter";
@@ -81,7 +77,7 @@ const useContactSheetForm = () => {
   }, [presetKey]);
 
   const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = event.currentTarget;
     setValues((prev) => ({ ...prev, [name]: value }));
@@ -108,7 +104,7 @@ const useContactSheetForm = () => {
           if (message) {
             nextErrors[key] = message;
           }
-        }
+        },
       );
 
       setErrors(nextErrors);
@@ -143,9 +139,9 @@ const ContactForm = () => {
     <form className="space-y-4" onSubmit={handleSubmit}>
       <div className="grid gap-4">
         <div className="space-y-2">
-        <label htmlFor="contact-name" className="text-sm font-medium">
-          Name
-        </label>
+          <label htmlFor="contact-name" className="text-sm font-medium">
+            Name
+          </label>
           <Input
             id="contact-name"
             name="name"
@@ -158,7 +154,7 @@ const ContactForm = () => {
             aria-describedby={errors.name ? "contact-name-error" : undefined}
           />
           {errors.name ? (
-            <p id="contact-name-error" className="text-sm text-destructive">
+            <p id="contact-name-error" className="text-destructive text-sm">
               {errors.name}
             </p>
           ) : null}
@@ -167,10 +163,10 @@ const ContactForm = () => {
           <label htmlFor="contact-email" className="text-sm font-medium">
             Email
           </label>
-        <Input
-          id="contact-email"
-          name="email"
-          type="email"
+          <Input
+            id="contact-email"
+            name="email"
+            type="email"
             placeholder="you@company.com"
             autoComplete="email"
             required
@@ -180,7 +176,7 @@ const ContactForm = () => {
             aria-describedby={errors.email ? "contact-email-error" : undefined}
           />
           {errors.email ? (
-            <p id="contact-email-error" className="text-sm text-destructive">
+            <p id="contact-email-error" className="text-destructive text-sm">
               {errors.email}
             </p>
           ) : null}
@@ -189,8 +185,8 @@ const ContactForm = () => {
           <label htmlFor="contact-company" className="text-sm font-medium">
             Company
           </label>
-        <Input
-          id="contact-company"
+          <Input
+            id="contact-company"
             name="company"
             placeholder="Company name (optional)"
             autoComplete="organization"
@@ -202,7 +198,7 @@ const ContactForm = () => {
             }
           />
           {errors.company ? (
-            <p id="contact-company-error" className="text-sm text-destructive">
+            <p id="contact-company-error" className="text-destructive text-sm">
               {errors.company}
             </p>
           ) : null}
@@ -211,9 +207,9 @@ const ContactForm = () => {
           <label htmlFor="contact-message" className="text-sm font-medium">
             Project notes
           </label>
-        <Textarea
-          id="contact-message"
-          name="message"
+          <Textarea
+            id="contact-message"
+            name="message"
             placeholder="Tell us what you want to build"
             rows={4}
             required
@@ -225,7 +221,7 @@ const ContactForm = () => {
             }
           />
           {errors.message ? (
-            <p id="contact-message-error" className="text-sm text-destructive">
+            <p id="contact-message-error" className="text-destructive text-sm">
               {errors.message}
             </p>
           ) : null}
@@ -257,7 +253,22 @@ const ContactSheet = () => {
 
   return (
     <div className="flex items-center gap-3">
-      {isMobile ? (
+      <Sheet open={isContactFormOpen} onOpenChange={setContactFormOpen}>
+        <SheetContent
+          side={isMobile ? "bottom" : "right"}
+          className="max-h-[90vh] w-full max-w-xl gap-6 overflow-y-auto"
+          onCloseAutoFocus={(event) => event.preventDefault()}
+        >
+          <SheetHeader className="space-y-4">
+            <ContactHeader />
+          </SheetHeader>
+          <div className="px-4 pb-6">
+            <ContactForm />
+          </div>
+        </SheetContent>
+      </Sheet>
+
+      {/* {isMobile ? (
         <Drawer
           direction="bottom"
           open={isContactFormOpen}
@@ -284,7 +295,7 @@ const ContactSheet = () => {
         <Sheet open={isContactFormOpen} onOpenChange={setContactFormOpen}>
           <SheetContent
             side="right"
-            className="w-full max-w-xl gap-6"
+            className="max-h-[90vh] w-full max-w-xl gap-6 overflow-y-auto"
             onCloseAutoFocus={(event) => event.preventDefault()}
           >
             <SheetHeader className="space-y-4">
@@ -295,7 +306,7 @@ const ContactSheet = () => {
             </div>
           </SheetContent>
         </Sheet>
-      )}
+      )} */}
     </div>
   );
 };
