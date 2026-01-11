@@ -48,7 +48,7 @@ export default function CaptionScroll({
       id={id}
       ref={containerRef}
       className={[
-        "relative z-50 flex min-h-screen w-full items-center justify-center overflow-hidden px-4 py-16 sm:px-8 lg:px-12",
+        "relative flex min-h-screen w-full items-center justify-center overflow-hidden px-4 py-16 sm:px-8 lg:px-12",
         className,
       ].join(" ")}
     >

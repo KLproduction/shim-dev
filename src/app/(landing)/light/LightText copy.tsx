@@ -23,7 +23,7 @@ export default function LightTextCopy() {
     }
   };
 
-  const isCoderLit = angle <= 0.35;
+  const isCoderLit = angle <= 0.4;
   const isDesignerLit = angle >= 0.3;
 
   const sectionRef = useRef<HTMLDivElement | null>(null);
@@ -61,7 +61,7 @@ export default function LightTextCopy() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1.2, ease: "easeOut", delay: 0.4 }}
+        transition={{ duration: 1.2, ease: "easeInOut", delay: 0.8 }}
         className="pointer-events-none absolute inset-0 h-full w-full"
       >
         <motion.div
@@ -130,25 +130,26 @@ export default function LightTextCopy() {
               },
             }}
             style={{ y: captionY }}
-            className="font-milker flex max-w-4xl flex-col items-start text-[clamp(2rem,12vw,8rem)] leading-[0.8] font-bold tracking-tighter uppercase"
+            className="font-milker flex max-w-4xl flex-col items-start text-[clamp(2rem,12vw,5rem)] leading-[0.8] font-bold tracking-tighter uppercase"
           >
-            <span>BUILDING</span>
-            <span>DIGITAL</span>
-            <span>EXPERIENCES</span>
-            <span>THAT SHINE</span>
+            <span>BUILD</span>
+            <span className="text-accent">SMART</span>
+            <span>LAUNCH</span>
+            <span className="text-accent">FAST</span>
+            <span>SCALE WHEN READY</span>
           </motion.h1>
           <motion.span
             initial={{ opacity: 0 }}
             animate={{ opacity: isCoderLit ? 0.2 : 0 }}
             transition={{ duration: 0.3 }}
-            className="font-milker text-accent hidden max-w-4xl flex-col items-start text-[clamp(2rem,12vw,4rem)] leading-[0.8] font-bold tracking-tighter uppercase lg:flex"
+            className="font-milker text-accent hidden max-w-4xl flex-col items-start text-[clamp(2rem,12vw,4rem)] leading-[0.8] font-bold tracking-tighter uppercase lg:flex lg:text-[clamp(2rem,12vw,6rem)]"
           >
             SHIMG SOLUTION
           </motion.span>
           <motion.span
             initial={{ opacity: 0 }}
             animate={{ opacity: isDesignerLit ? 0.2 : 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 2 }}
             className="font-milker text-accent flex max-w-4xl flex-col items-start text-[clamp(2rem,12vw,4rem)] leading-[0.8] font-bold tracking-tighter uppercase lg:hidden"
           >
             SHIMG SOLUTION
@@ -187,7 +188,7 @@ export default function LightTextCopy() {
             onClick={(event) => handleScrollTo(event, "#features")}
             className="h-auto gap-2 rounded-none border-2 border-[#DFE104] bg-[#DFE104] px-8 py-3 text-xs font-bold tracking-widest text-black uppercase transition-all duration-200 hover:scale-105 active:scale-95 sm:px-10 sm:py-4 sm:text-sm"
           >
-            VIEW SELECTED WORKS
+            VIEW WORKS
             <span aria-hidden="true">+</span>
           </Button>
           <Button
@@ -199,7 +200,7 @@ export default function LightTextCopy() {
             }}
             className="h-auto rounded-none border-2 border-[#3F3F46] bg-transparent px-8 py-3 text-xs font-bold tracking-widest text-[#FAFAFA] uppercase transition-all duration-200 hover:scale-105 hover:bg-[#FAFAFA] hover:text-black active:scale-95 sm:px-10 sm:py-4 sm:text-sm"
           >
-            CONTACT ME
+            GET IN TOUCH
           </Button>
         </motion.div>
       </motion.div>

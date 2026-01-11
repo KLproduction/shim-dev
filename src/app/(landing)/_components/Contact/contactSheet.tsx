@@ -256,7 +256,7 @@ const ContactSheet = () => {
       <Sheet open={isContactFormOpen} onOpenChange={setContactFormOpen}>
         <SheetContent
           side={isMobile ? "bottom" : "right"}
-          className="max-h-[90vh] w-full max-w-xl gap-6 overflow-y-auto"
+          className="max-h-screen w-full max-w-xl gap-6 overflow-y-auto"
           onCloseAutoFocus={(event) => event.preventDefault()}
         >
           <SheetHeader className="space-y-4">

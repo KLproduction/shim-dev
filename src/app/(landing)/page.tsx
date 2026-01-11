@@ -52,7 +52,7 @@ const Page = (props: Props) => {
       </section>
       <CaptionScroll
         caption="SELECTED WORK"
-        className="bg-background h-screen w-full"
+        className="bg-background z-0 h-screen w-full"
         id="work"
       />
       <section id="features" className="bg-background relative z-10">
